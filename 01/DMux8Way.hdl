@@ -1,0 +1,51 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/DMux8Way.hdl
+
+/**
+ * 8-way demultiplexor:
+ * {a, b, c, d, e, f, g, h} = {in, 0, 0, 0, 0, 0, 0, 0} if sel == 000
+ *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001
+ *                            etc.
+ *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111
+ */
+
+ /**
+ * 8-way demultiplexor:
+ * {a, b, c, d, e, f, g, h} = {in, 0, 0, 0, 0, 0, 0, 0} if sel == 000
+ *                            {0, in, 0, 0, 0, 0, 0, 0} if sel == 001
+ *                            etc.
+ *                            {0, 0, 0, 0, 0, 0, 0, in} if sel == 111
+ */
+/**
+| in  |  sel  |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |
+|  0  |  000  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  001  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  010  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  011  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  100  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  101  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  110  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  0  |  111  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  1  |  000  |  1  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  1  |  001  |  0  |  1  |  0  |  0  |  0  |  0  |  0  |  0  |
+|  1  |  010  |  0  |  0  |  1  |  0  |  0  |  0  |  0  |  0  |
+|  1  |  011  |  0  |  0  |  0  |  1  |  0  |  0  |  0  |  0  |
+|  1  |  100  |  0  |  0  |  0  |  0  |  1  |  0  |  0  |  0  |
+|  1  |  101  |  0  |  0  |  0  |  0  |  0  |  1  |  0  |  0  |
+|  1  |  110  |  0  |  0  |  0  |  0  |  0  |  0  |  1  |  0  |
+|  1  |  111  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  1  |
+*/
+CHIP DMux8Way {
+    IN in, sel[3];
+    OUT a, b, c, d, e, f, g, h;
+
+    PARTS:
+    // Put your code here:
+    DMux4Way(in = in, sel = sel[1..2], a = o1, b = o2, c = o3, d = o4);
+    DMux(in = o1, sel = sel[0], a = a, b = b);
+    DMux(in = o2, sel = sel[0], a = c, b = d);
+    DMux(in = o3, sel = sel[0], a = e, b = f);
+    DMux(in = o4, sel = sel[0], a = g, b = h);
+}

@@ -14,4 +14,9 @@ CHIP FullAdder {
 
     PARTS:
     // Put you code here:
+    // when c = 0, calculate LSB and MSB of a+b+c
+    HalfAdder(a=a, b=b, sum=sumC0, carry=carryC0);
+    // when c = 1, calculate LSB and MSB of LSM(c=0, a+b+c), 
+    HalfAdder(a=sumC0, b=c, sum=sum, carry=carryC1);
+    Or(a=carryC0, b=carryC1, out=carry);
 }

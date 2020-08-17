@@ -70,6 +70,7 @@ CHIP ALU {
     Mux(a=true, b=false, sel=ZeroO, out=zr);
 
     // ng: 1 if (out < 0),  0 otherwise
+    // isNg(in=out, out=ng);
     Or(a=out[15], b=false, out=ng);
 
 }

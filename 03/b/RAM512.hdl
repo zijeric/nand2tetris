@@ -9,11 +9,31 @@
  * the in value is loaded into the memory location specified by address 
  * (the loaded value will be emitted to out from the next time step onward).
  */
-
+/**
+ *  * Tips: Think about the RAM's address input as consisting of two fields:
+ *  - One field can be used to select a RAM-part
+ *  - The other field can be used to select a register within that RAM-part 
+ */
 CHIP RAM512 {
     IN in[16], load, address[9];
     OUT out[16];
 
     PARTS:
     // Put your code here:
+    // only one register can load the input
+    // use 8 RAM64 to implement this RAM512,
+    // and use the address[6..8] to select RAM64, use give the address[0..5] to RAM64 as parameter
+    DMux8Way(in=load, sel=address[6..8], a=RAM0, b=RAM1, c=RAM2, d=RAM3, e=RAM4, f=RAM5, g=RAM6, h=RAM7);
+
+    RAM64(in=in, load=RAM0, address=address[0..5], out=out0);
+    RAM64(in=in, load=RAM1, address=address[0..5], out=out1);
+    RAM64(in=in, load=RAM2, address=address[0..5], out=out2);
+    RAM64(in=in, load=RAM3, address=address[0..5], out=out3);
+    RAM64(in=in, load=RAM4, address=address[0..5], out=out4);
+    RAM64(in=in, load=RAM5, address=address[0..5], out=out5);
+    RAM64(in=in, load=RAM6, address=address[0..5], out=out6);
+    RAM64(in=in, load=RAM7, address=address[0..5], out=out7);
+
+    // select the one register load input to output
+    Mux8Way16(a=out0, b=out1, c=out2, d=out3, e=out4, f=out5, g=out6, h=out7, sel=address[6..8], out=out);
 }

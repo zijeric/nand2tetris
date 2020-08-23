@@ -30,19 +30,26 @@ CHIP DMux4Way {
     OUT a, b, c, d;
 
     PARTS:
-    // Put your code here:
+    // let sel from 0 to 1 that we can output all situations
     Not(in=sel[0], out=sel00);
     Not(in=sel[1], out=sel10);
-    
+    // sel: 00 -> (sel10, sel00 = 11)
     And(a=in, b=sel10, out=a1);
     And(a=a1, b=sel00, out=a);
-    
+    // sel: 01 -> (sel10, sel[0] = 11)
     And(a=in, b=sel10, out=b1);
     And(a=b1, b=sel[0], out=b);
-    
+    // sel: 10 -> (sel[1], sel00 = 11)
     And(a=in, b=sel[1], out=c1);
     And(a=c1, b=sel00, out=c);
-    
+    // sel: 11 -> (sel[0], sel[0] = 11)
     And(a=in, b=sel[0], out=d1);
     And(a=d1, b=sel[1], out=d);
+    
+    // 0?: tp1, 1?: tp2
+    // DMux(in=in, sel=sel[1], a=tp1, b=tp2);
+    // (0) + [0, 1] -> (a, b)
+    // DMux(in=tp1, sel=sel[0], a=a, b=b);
+    // (1) + [0, 1] -> (c, d)
+    // DMux(in=tp2, sel=sel[1], a=c, b=d);
 }

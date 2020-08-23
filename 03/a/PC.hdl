@@ -16,5 +16,14 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // Order cant change
+    // inc
+    Mux16(a=lastOut, b=incOut, sel=inc, out=out1);
+    // laod
+    Mux16(a=out1, b=in, sel=load, out=out2);
+    // reset
+    Mux16(a=out2, b=false, sel=reset, out=out3);
+
+    Register(in=out3, load=true, out=lastOut, out=out);
+    Inc16(in=lastOut, out=incOut);
 }

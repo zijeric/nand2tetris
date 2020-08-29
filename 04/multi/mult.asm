@@ -10,11 +10,13 @@
 
 // pseudo code:
 // sum = 0
+// i = RAM[0]
 
 // LOOP:
-//     if RAM[1] ≤ 0 goto STOP
-//     RAM[1] = RAM[1] - 1
-//     sum = sum + RAM[0]
+//     // This is assembly, may be variable 'i' isnt so necessary like C program, can use RAM[0] directly.
+//     if i ≤ 0 goto STOP  
+//     i = i - 1
+//     sum = sum + RAM[1]
 //     goto LOOP
 
 // STOP:
@@ -26,16 +28,20 @@
 // implement:
     @sum
     M=0
+    @R0
+    D=M
+    @i
+    M=D
     @R2
     M=0
 
 (LOOP)
-    @R0
+    @i
     D=M
     @STOP
     D;JLE  // jump less equal; if R[0] <= 0 goto STOP
-    @R0
-    M=M-1  // R0--
+    @i
+    M=M-1  // i--
 
     @R1
     D=M

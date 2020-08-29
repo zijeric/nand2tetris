@@ -12,3 +12,21 @@
 // the screen should remain fully clear as long as no key is pressed.
 
 // Put your code here.
+
+    screen = SCREEN  // 16384
+    kbd = KBD  // 24576
+    max = 8191
+
+    i = 0
+
+STOP:
+    if kbd != 0 goto LOOP
+
+    LOOP:
+        if i > max goto STOP
+        RAM[screen] = -1  // 1111 1111 1111 1111
+        // advances to next
+        screen = screen + 1
+        i = i + 1
+        goto LOOP
+

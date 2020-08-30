@@ -13,20 +13,61 @@
 
 // Put your code here.
 
-    screen = SCREEN  // 16384
-    kbd = KBD  // 24576
-    max = 8191
+    // max = 24575, store as a address
+    @24575
+    D=A
+    @max
+    M=D
 
-    i = 0
+    // current = SCREEN, store as a address
+    @SCREEN
+    D=A
+    @current
+    M=D
 
-STOP:
-    if kbd != 0 goto LOOP
+(LOOP)
+    // if(Memory[KBD] > 0){  // 键盘有按键
+    //     FILL();
+    // }
+    @KBD
+    D=M
+    @FILL
+    D;JGT
 
-    LOOP:
-        if i > max goto STOP
-        RAM[screen] = -1  // 1111 1111 1111 1111
-        // advances to next
-        screen = screen + 1
-        i = i + 1
-        goto LOOP
+    // CLEAR();  // no conditional
+    @CLEAR
+    0;JMP
 
+(FILL)
+    @current
+    D=M
+    @max
+    D=D-M  // current - max
+    @LOOP
+    D;JGT
+
+    @current
+    A=M
+    M=-1
+    @current
+    M=M+1
+    @LOOP
+    0;JMP
+
+(CLEAR)
+    @SCREEN
+    D=A  // get SCREEN address
+    @current
+    D=D-M  // SCREEN - current
+    @LOOP
+    D;JGT
+
+    @current
+    A=M
+    M=0
+
+    @current
+    M=M-1
+
+    @LOOP
+    0;JMP

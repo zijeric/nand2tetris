@@ -1,0 +1,57 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/05/Memory.hdl
+
+/**
+ * The complete address space of the Hack computer's memory,
+ * including RAM and memory-mapped I/O. 
+ * The chip facilitates read and write operations, as follows:
+ *     Read:  out(t) = Memory[address(t)](t)
+ *     Write: if load(t-1) then Memory[address(t-1)](t) = in(t-1)
+ * In words: the chip always outputs the value stored at the memory 
+ * location specified by address. If load==1, the in value is loaded 
+ * into the memory location specified by address. This value becomes 
+ * available through the out output from the next time step onward.
+ * Address space rules:
+ * Only the upper 16K+8K+1 words of the Memory chip are used. 
+ * Access to address>0x6000 is invalid. Access to any address in 
+ * the range 0x4000-0x5FFF results in accessing the screen memory 
+ * map. Access to address 0x6000 results in accessing the keyboard 
+ * memory map. The behavior in these addresses is described in the 
+ * Screen and Keyboard chip specifications given in the book.
+ */
+
+/*
+ * DMux和Mux的区别？
+ *  - Mux：多路复用。根据sel选择位，对多个输入筛选出一个输出。是“多”到“少”的设备。
+ *         例如，4：1多路复用器选择四个输入信号之一以传递到输出。
+ *  - DMux：解复用。接收“很少”信号并输出​​“很多”。适用于划分地址进行不同应用。
+ *
+ */
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    // RAM16K    (0~16383) -> address[15]: (000 0000 0000 0000) ~ ‭(011 1111 1111 1111‬)
+    // Screen    (16384~24575) -> (100 0000 0000 0000) ~ ‭(101 1111 1111 1111‬)
+    // Keyboard  24576 -> (110 0000 0000 0000)
+    // 由地址的第15位选择输出，区分出 RAM(0) 和 内存映射区(1), 实际输出还是load = (0/1).  1 in : 2 out
+    DMux(in=load, sel=address[14], a=RAM, b=Map);
+    // 再由 内存映射区(1) 对应地址的第14位进行选择，区分出 Screen(0) 和 Keyboard(1), 实际输出还是load = (0/1)..   1 in : 2 out
+    DMux(in=Map, sel=address[13], a=Scr, b=Key);
+
+    RAM16K(in=in, load=RAM, address=address[0..13], out=Rout);  // (000 0000 0000 0000) ~ ‭(011 1111 1111 1111‬)
+    Screen(in=in, load=Scr, address=address[0..12], out=Sout);  // (100 0000 0000 0000) ~ ‭(101 1111 1111 1111‬)
+    Keyboard(out=Kout);  // rest address
+
+    /**
+    * 4-way 16-bit multiplexor:
+    * out = a if sel == 00 : RAM16K    (0~16383)
+    *       b if sel == 01 : RAM16K    (0~16383)
+    *       c if sel == 10 : Screen    (16384~24575)
+    *       d if sel == 11 : Keyboard  24576
+    */
+    Mux4Way16(a=Rout, b=Rout, c=Sout, d=Kout, sel=address[13..14], out=out);
+}

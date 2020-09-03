@@ -39,5 +39,81 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    // A instrution
+    // [0]vvv vvvv vvvv vvvv: rest 15 bits store in A-Register
+
+    // control bit for next Mux16, make sure it is A instrutioin
+    Not(in=instruction[15], out=aInstruction);
+    // is A instrution? 
+    Mux16(a=preALUOut, b=instruction, sel=aInstruction, out=aRegIn);
+
+    // C instrutioin: d1 controls wheter to write in A-Register
+    Not(in=instrution[5], out=d1);
+    Nand(a=instrution[15], b=d1, out=writeInA);
+    // Write in A-Register, out[0..14]: Address in data memory (of M-Register)
+    ARegister(in=aRegIn, load=writeInA, out=aRegOut, out[0..14]=addressM);
+
+    // C instrution
+    // [1]..a cccc ccdd djjj
+    // comp: ALU control bits
+    // dest: Destination load bits
+    // jump: Jump load bits
+
+    // assert C instrution
+    And(a=instrutioin[15], b=instruction[12], out=AMsel);
+    // a bit controls select aRegOut(a:0) or inM[16](a:1)
+    Mux16(a=aRegOut, b=inM, sel=AMsel, out=AorM);
+    // ALU takes input from D-Register and from A-Register or inM[16]
+
+    // assert C instrution
+    And(a=instrutioin[15], b=instrutioin[4], out=writeInD);
+    // d2 bit controls wheter to write in D-Register
+    DRegister(in=OutM, load=writeInD, out=dRegOut);
+
+    // assert C instrution
+    // x input turn zero
+    And(a=instruction[15], b=instruction[11], out=c1);
+    // Not(x input)
+	And(a=instruction[15], b=instruction[10], out=c2);
+    // y input turn zero
+	And(a=instruction[15], b=instruction[9],  out=c3);
+    // Not(y input)
+	And(a=instruction[15], b=instruction[8],  out=c4);
+    // f: 1--Add(), 0--And()
+	And(a=instruction[15], b=instruction[7],  out=c5);
+    // Not(out)
+	And(a=instruction[15], b=instruction[6],  out=c6);
+
+    // ALU input & output
+    ALU(x=dRegOut, y=AorM, out=preALUOut, out=outM
+        // comp region
+        zx=c1, nx=c2, zy=c3, ny=c4, f=c5, no=c6,
+        // is zero? is negative?
+        zr=zr, ng=ng);
+
+    // writeM uses 3rd destination load bit.
+    // And(a=instruction[15], b=instruction[3], out=writeM);
+
+    // // Program counter.
+    // // Emits next instruction.
+    // // Reset: = 0
+    // // 000 nojump: ++
+    // // 111 goto: = A
+    // // 010 100 etc conditional goto: = A || ++
+    // Not(in=ngOut, out=pos);
+    // Not(in=zrOut, out=nzr);
+    // And(a=instruction[15], b=instruction[0], out=jgt);
+    // And(a=pos, b=nzr, out=posnzr);
+    // And(a=jgt, b=posnzr, out=ld1);
+
+    // And(a=instruction[15], b=instruction[1], out=jeq);
+    // And(a=jeq, b=zrOut, out=ld2);
+
+    // And(a=instruction[15], b=instruction[2], out=jlt);
+    // And(a=jlt, b=ngOut, out=ld3);
+
+    // Or(a=ld1, b=ld2, out=ldt);
+    // Or(a=ld3, b=ldt, out=ld);
+
+    // PC(in=A, load=ld, inc=true, reset=reset, out[0..14]=pc);
 }

@@ -44,30 +44,31 @@ CHIP CPU {
 
     // control bit for next Mux16, make sure it is A instrutioin
     Not(in=instruction[15], out=aInstruction);
-    // is A instrution? 
     Mux16(a=preALUOut, b=instruction, sel=aInstruction, out=aRegIn);
 
-    // C instrutioin: d1 controls wheter to write in A-Register
+    // new branch, C instrutioin: d1 controls wheter to write in A-Register
     Not(in=instrution[5], out=d1);
+    // in accordance with the truth table
     Nand(a=instrution[15], b=d1, out=writeInA);
     // Write in A-Register, out[0..14]: Address in data memory (of M-Register)
     ARegister(in=aRegIn, load=writeInA, out=aRegOut, out[0..14]=addressM);
 
     // C instrution
     // [1]..a cccc ccdd djjj
+    // 15 14 13 12 ....
     // comp: ALU control bits
     // dest: Destination load bits
     // jump: Jump load bits
 
-    // assert C instrution
+    // assert C instrution, AMsel is the second Mux control bit, select A or M ?
     And(a=instrutioin[15], b=instruction[12], out=AMsel);
-    // a bit controls select aRegOut(a:0) or inM[16](a:1)
+    // 'a' bit controls select aRegOut(a=0) or inM[16](a=1)
     Mux16(a=aRegOut, b=inM, sel=AMsel, out=AorM);
     // ALU takes input from D-Register and from A-Register or inM[16]
 
-    // assert C instrution
+    // assert C instrution, writeInD is the D control bit
     And(a=instrutioin[15], b=instrutioin[4], out=writeInD);
-    // d2 bit controls wheter to write in D-Register
+    // 'd2' bit controls wheter to write in D-Register
     DRegister(in=OutM, load=writeInD, out=dRegOut);
 
     // assert C instrution
@@ -92,7 +93,7 @@ CHIP CPU {
         zr=zr, ng=ng);
 
     // writeM uses 3rd destination load bit.
-    // And(a=instruction[15], b=instruction[3], out=writeM);
+    And(a=instruction[15], b=instruction[3], out=writeM);
 
     // // Program counter.
     // // Emits next instruction.
@@ -100,20 +101,20 @@ CHIP CPU {
     // // 000 nojump: ++
     // // 111 goto: = A
     // // 010 100 etc conditional goto: = A || ++
-    // Not(in=ngOut, out=pos);
-    // Not(in=zrOut, out=nzr);
-    // And(a=instruction[15], b=instruction[0], out=jgt);
-    // And(a=pos, b=nzr, out=posnzr);
-    // And(a=jgt, b=posnzr, out=ld1);
+    Not(in=ngOut, out=pos);
+    Not(in=zrOut, out=nzr);
+    And(a=instruction[15], b=instruction[0], out=jgt);
+    And(a=pos, b=nzr, out=posnzr);
+    And(a=jgt, b=posnzr, out=ld1);
 
-    // And(a=instruction[15], b=instruction[1], out=jeq);
-    // And(a=jeq, b=zrOut, out=ld2);
+    And(a=instruction[15], b=instruction[1], out=jeq);
+    And(a=jeq, b=zrOut, out=ld2);
 
-    // And(a=instruction[15], b=instruction[2], out=jlt);
-    // And(a=jlt, b=ngOut, out=ld3);
+    And(a=instruction[15], b=instruction[2], out=jlt);
+    And(a=jlt, b=ngOut, out=ld3);
 
-    // Or(a=ld1, b=ld2, out=ldt);
-    // Or(a=ld3, b=ldt, out=ld);
+    Or(a=ld1, b=ld2, out=ldt);
+    Or(a=ld3, b=ldt, out=ld);
 
-    // PC(in=A, load=ld, inc=true, reset=reset, out[0..14]=pc);
+    PC(in=A, load=ld, inc=true, reset=reset, out[0..14]=pc);
 }

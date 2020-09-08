@@ -11,6 +11,8 @@ import java.util.Scanner;
  *      1.读取汇编语言命令并对其进行解析;
  *      (*)2.提供“方便访问汇编命令成分(域和符号)”的方法;
  *      3.去掉所有的空格和注释.
+ *
+ * 用于Assembler.java
  */
 public class Parser {
 

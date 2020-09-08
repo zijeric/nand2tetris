@@ -50,7 +50,7 @@ public class Code {
     * @param symbol
     * @return
     */
-   public static String comp(String symbol) {
+   static String comp(String symbol) {
        if (!compRegion.containsKey(symbol)) {
           throw new IllegalArgumentException("Invalid comp mnemonic: " + symbol);
        } else {
@@ -78,7 +78,7 @@ public class Code {
     * @param symbol
     * @return
     */
-    public static String dest(String symbol) {
+    static String dest(String symbol) {
         StringBuilder binary = new StringBuilder();
 
         checkDest(symbol, binary, "A");
@@ -93,7 +93,7 @@ public class Code {
      * @param symbol
      * @return
      */
-    public static String jump(String symbol) {
+    static String jump(String symbol) {
         switch (symbol) {
 
             case "":

@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * 用于Assembler.java
  */
-public class Parser {
+class Parser {
 
 //    存储输入文件/输入流，为语法解析作准备
     private Scanner scanner;
@@ -25,7 +25,7 @@ public class Parser {
      * 构造函数，将 输入文件/输入流 存储在Scanner对象
      * @param scanner
      */
-    private Parser(Scanner scanner) {
+    Parser(Scanner scanner) {
         this.scanner = scanner;
     }
 
@@ -33,7 +33,7 @@ public class Parser {
      * 判断输入当中是否还有下一行
      * @return  有:true ; 没有:false
      */
-    private boolean hasMoreCommands() {
+    boolean hasMoreCommands() {
         return scanner.hasNextLine();
     }
 
@@ -44,14 +44,14 @@ public class Parser {
      * × next(): 读取第一个有效字符后，遇到空格就结束。若要完整读取需要利用循环
      * nextLine(): 读取一整行的字符串，遇到换行符就结束。(可得到空白)
      */
-    public void advance() {
+    void advance() {
         this.current = scanner.nextLine();
     }
 
     /**
      * 跳过所有的注释和空白
      */
-    public void skipSpacesAndComments() {
+    void skipSpacesAndComments() {
 //        如果是注释
         if (current.contains("//")) {
 //            丢弃 "//"注释后面的所有内容，删除注释
@@ -67,7 +67,7 @@ public class Parser {
      * 返回当前指令的长度
      * @return
      */
-    public int currentLength() {
+    int currentLength() {
         return current.length();
     }
 
@@ -84,7 +84,7 @@ public class Parser {
      * 根据当前指令的开始字符，判断当前指令的类型
      * @return
      */
-    public commandType CommandType() {
+    commandType CommandType() {
 
 //        当@Xxx中的Xxx是符号或十进制数字时, 为A-指令.
         if (current.startsWith("@")) {
@@ -106,7 +106,7 @@ public class Parser {
      * 由"="分割为两个字符串，读取[0](第一个)
      * @return
      */
-    public String dest() {
+    String dest() {
         if (current.contains("=")) {
             return current.split("=")[0];
         } else {
@@ -122,7 +122,7 @@ public class Parser {
      * 若指令不包含"="，用";"分割为两个字符串，读取[0](第一个)
      * @return
      */
-    public String comp() {
+    String comp() {
         if (current.contains("=")) {
             return current.split("[=;]")[1];
         } else {
@@ -136,7 +136,7 @@ public class Parser {
      * 用";"分割为两个字符串，读取[1](第二个)
      * @return
      */
-    public String jump(){
+    String jump(){
         if (current.contains(";")){
             return current.split(";")[1];
         } else {
@@ -144,10 +144,20 @@ public class Parser {
         }
     }
 
+    String symbol() {
+        if (current.startsWith("@")) {
+            return current.substring(1);
+        } else if (current.startsWith("(")) {
+            return current.substring(1, current.indexOf(")"));
+        } else {
+            return null;
+        }
+    }
+
     /**
      * 释放资源
      */
-    public void close() {
+    void close() {
         if (scanner != null)
             scanner.close();
     }

@@ -3,6 +3,8 @@ package com.test;
  * Created by Nolva on 2020/9/8.
  */
 
+import com.nolva.Code;
+
 public class testCode {
     public static void main(String[] args) {
 //        HashMap<String, String> compRegion = new HashMap<>(){{
@@ -37,6 +39,11 @@ public class testCode {
 //        }};
 //
 //        System.out.println(compRegion.values());
+
+        int decimal = 19568;
+        String binary = Code.binary(decimal);
+//        100110001110000 (15bits)
+        System.out.println(binary);
 
     }
 }

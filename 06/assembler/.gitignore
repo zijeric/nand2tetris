@@ -5,12 +5,11 @@
 # IntelliJ project files
 .idea
 *.iml
-/out
+out
 gen
+
 ### Java template
 # Compiled class file
-*.class
-
 # Log file
 *.log
 

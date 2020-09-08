@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64b7d9c2-094a-4b58-81b6-4fa769fd102a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../add/Add.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/10900.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/nolva/Parser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../max/Max.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../max/MaxL.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pong/Pong.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pong/PongL.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../rect/Rect.asm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../rect/RectL.asm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/test/testSplit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assembler/com/nolva/Parser$commandType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assembler/com/nolva/Parser$commandType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/assembler/com/nolva/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/assembler/com/nolva/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nolva/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/nolva/Parser.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,35 +23,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/nolva/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="596">
-              <caret line="97" column="28" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
+            <state relative-caret-position="2403">
+              <caret line="133" column="30" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
               <folding>
-                <element signature="e#845#846#0" expanded="true" />
-                <element signature="e#899#900#0" expanded="true" />
-                <element signature="e#1207#1208#0" expanded="true" />
-                <element signature="e#1245#1246#0" expanded="true" />
+                <element signature="e#407#408#0" expanded="true" />
+                <element signature="e#445#446#0" expanded="true" />
+                <element signature="e#678#679#0" expanded="true" />
+                <element signature="e#722#723#0" expanded="true" />
+                <element signature="e#1328#1329#0" expanded="true" />
+                <element signature="e#1367#1368#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/lang/String.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/test/testSplit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49059">
-              <caret line="1906" column="18" selection-start-line="1906" selection-start-column="18" selection-end-line="1906" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/util/Scanner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41688">
-              <caret line="1605" column="19" selection-start-line="1605" selection-start-column="19" selection-end-line="1605" selection-end-column="19" />
+            <state relative-caret-position="216">
+              <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -64,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../../N2T-master/06/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+            <state relative-caret-position="162">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -87,6 +75,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/testOuputStream.java" />
         <option value="$PROJECT_DIR$/src/com/testOutputStream.java" />
+        <option value="$PROJECT_DIR$/src/com/test/testSplit.java" />
         <option value="$PROJECT_DIR$/src/com/nolva/Parser.java" />
       </list>
     </option>
@@ -102,8 +91,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="705" />
-    <option name="width" value="1229" />
-    <option name="height" value="1040" />
+    <option name="width" value="1230" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -112,7 +101,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -142,12 +130,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1599469112586" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1599534227174" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="SDKs" />
@@ -170,6 +159,26 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="testSplit" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.test.testSplit" />
+      <module name="assembler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.testSplit" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -183,19 +192,20 @@
       <workItem from="1599403320405" duration="823000" />
       <workItem from="1599444238339" duration="3018000" />
       <workItem from="1599458929693" duration="6799000" />
-      <workItem from="1599479047409" duration="5136000" />
+      <workItem from="1599479047409" duration="5281000" />
+      <workItem from="1599528005054" duration="5652000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15776000" />
+    <option name="totallyTimeSpent" value="21573000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="564" y="0" width="983" height="832" extended-state="0" />
+    <frame x="564" y="0" width="984" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24932976" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24838012" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.24946004" />
       <window_info id="Designer" order="2" />
       <window_info id="JRebel" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -204,7 +214,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3295129" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31944445" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -218,7 +228,7 @@
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.3286119" />
       <window_info anchor="bottom" id="JRebel Executor" order="14" />
       <window_info anchor="bottom" id="JRebel Console" order="15" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="16" />
+      <window_info anchor="bottom" id="Messages" order="16" weight="0.32916668" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -252,37 +262,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/nolva/Parser.java">
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/util/Scanner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="97" column="28" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
-          <folding>
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#899#900#0" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1245#1246#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="326">
+          <caret line="230" column="26" lean-forward="true" selection-start-line="230" selection-start-column="26" selection-end-line="230" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49059">
-          <caret line="1906" column="18" selection-start-line="1906" selection-start-column="18" selection-end-line="1906" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/util/Scanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41688">
-          <caret line="1605" column="19" selection-start-line="1605" selection-start-column="19" selection-end-line="1605" selection-end-column="19" />
+        <state relative-caret-position="555">
+          <caret line="2405" column="20" selection-start-line="2405" selection-start-column="20" selection-end-line="2405" selection-end-column="20" />
+          <folding>
+            <element signature="e#96159#96160#0" expanded="true" />
+            <element signature="e#96197#96198#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../../N2T-master/06/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+        <state relative-caret-position="162">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/nolva/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2403">
+          <caret line="133" column="30" selection-start-line="133" selection-start-column="30" selection-end-line="133" selection-end-column="30" />
+          <folding>
+            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#722#723#0" expanded="true" />
+            <element signature="e#1328#1329#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/test/testSplit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" column="59" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
         </state>
       </provider>
     </entry>

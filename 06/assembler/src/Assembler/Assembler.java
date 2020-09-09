@@ -1,4 +1,4 @@
-
+package Assembler;
 /*
  * Created by Nolva on 2020/9/8.
  */
@@ -25,8 +25,8 @@ public class Assembler {
         String filename = null;
 
 //        解析命令行参数
-        if (args.length != 1 || isValidFilename(args[0])) {
-            System.err.println("usage: java Assembler.Assembler filename.asm");
+        if (args.length != 1 || !isValidFilename(args[0])) {
+            System.err.println("usage: java packageName.className fileName.asm");
             System.exit(1);
         } else {
             filename = args[0];

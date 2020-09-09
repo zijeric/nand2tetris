@@ -1,4 +1,4 @@
-package com.nolva;
+
 /*
  * Created by Nolva on 2020/9/8.
  */
@@ -6,13 +6,13 @@ package com.nolva;
 import java.util.HashMap;
 
 /**
- * å°†Hackæ±‡ç¼–è¯­è¨€åŠ©è®°ç¬¦ç¿»è¯‘æˆäºŒè¿›åˆ¶ç 
- * ç”¨äºAssembler.java
+ * ½«Hack»ã±àÓïÑÔÖú¼Ç·û·­Òë³É¶ş½øÖÆÂë
+ * ÓÃÓÚAssembler.java
  */
 public class Code {
 
    /**
-    * æŒ‡ä»¤compåŸŸåŠ©è®°ç¬¦åŠå…¶äºŒè¿›åˆ¶å½¢å¼çš„è½¬æ¢è¡¨
+    * Ö¸ÁîcompÓòÖú¼Ç·û¼°Æä¶ş½øÖÆĞÎÊ½µÄ×ª»»±í
     */
     private static final HashMap<String, String> compRegion = new HashMap<>(){{
         put("0",   "0101010");
@@ -46,7 +46,7 @@ public class Code {
     }};
 
    /**
-    * ä»¥äºŒè¿›åˆ¶å½¢å¼è¿”å›compåŠ©è®°ç¬¦(7bits)
+    * ÒÔ¶ş½øÖÆĞÎÊ½·µ»ØcompÖú¼Ç·û(7bits)
     * @param symbol
     * @return
     */
@@ -59,13 +59,13 @@ public class Code {
    }
 
    /**
-    * æ ¹æ® æ˜¯å¦ éœ€è¦å­˜å‚¨åˆ°å½“å‰å¯„å­˜å™¨å¾€binary(æŒ‡ä»¤å¯¹åº”çš„äºŒè¿›åˆ¶å½¢å¼)å¡«å……(1/0)
+    * ¸ù¾İ ÊÇ·ñ ĞèÒª´æ´¢µ½µ±Ç°¼Ä´æÆ÷Íùbinary(Ö¸Áî¶ÔÓ¦µÄ¶ş½øÖÆĞÎÊ½)Ìî³ä(1/0)
     * @param symbol
     * @param binary
     * @param register
     */
     private static void checkDest(String symbol, StringBuilder binary, String register) {
-//      åˆ¤æ–­è¾“å…¥æ˜¯å¦éœ€è¦å­˜å‚¨åˆ°å½“å‰å¯„å­˜å™¨
+//      ÅĞ¶ÏÊäÈëÊÇ·ñĞèÒª´æ´¢µ½µ±Ç°¼Ä´æÆ÷
         if (symbol.contains(register)) {
            binary.append("1");
         } else {
@@ -74,7 +74,7 @@ public class Code {
     }
 
    /**
-    * ä»¥äºŒè¿›åˆ¶å½¢å¼è¿”å›deståŠ©è®°ç¬¦(3bits)
+    * ÒÔ¶ş½øÖÆĞÎÊ½·µ»ØdestÖú¼Ç·û(3bits)
     * @param symbol
     * @return
     */
@@ -89,7 +89,7 @@ public class Code {
     }
 
     /**
-     * ä»¥äºŒè¿›åˆ¶å½¢å¼è¿”å›jumpåŠ©è®°ç¬¦(3bits)
+     * ÒÔ¶ş½øÖÆĞÎÊ½·µ»ØjumpÖú¼Ç·û(3bits)
      * @param symbol
      * @return
      */
@@ -116,26 +116,26 @@ public class Code {
     }
 
     /**
-     * è¿”å›15ä½ ä»¥äºŒè¿›åˆ¶å½¢å¼è¡¨ç¤ºçš„ åè¿›åˆ¶éè´Ÿå¸¸æ•°
+     * ·µ»Ø15Î» ÒÔ¶ş½øÖÆĞÎÊ½±íÊ¾µÄ Ê®½øÖÆ·Ç¸º³£Êı
      * @param decimal
      * @return
      */
     public static String binary(int decimal) {
 
-//        å¸¸æ•°å¤§äº2^15ï¼ŒäºŒè¿›åˆ¶å½¢å¼å¤§äº15ä½ ä¸åˆè§„èŒƒ
+//        ³£Êı´óÓÚ2^15£¬¶ş½øÖÆĞÎÊ½´óÓÚ15Î» ²»ºÏ¹æ·¶
         if (decimal > 65535) {
             throw new IllegalArgumentException("Number too big to load into A-register");
         }
 
         StringBuilder binary = new StringBuilder();
 
-//        å°†åè¿›åˆ¶è½¬æ¢ä¸ºäºŒè¿›åˆ¶ï¼Œå¹¶å­˜å‚¨åœ¨StringBuilderå¯¹è±¡
+//        ½«Ê®½øÖÆ×ª»»Îª¶ş½øÖÆ£¬²¢´æ´¢ÔÚStringBuilder¶ÔÏó
         while (decimal > 0){
             binary.append(decimal % 2);
             decimal /= 2;
         }
 
-//        ç”¨0å¡«å……ï¼Œç›´è‡³äºŒè¿›åˆ¶ç ä¸º15ä½
+//        ÓÃ0Ìî³ä£¬Ö±ÖÁ¶ş½øÖÆÂëÎª15Î»
         while (binary.length() < 15) {
             binary.append("0");
         }

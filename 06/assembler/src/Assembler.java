@@ -1,4 +1,4 @@
-package com.nolva;
+
 /*
  * Created by Nolva on 2020/9/8.
  */
@@ -24,7 +24,7 @@ public class Assembler {
 
         String filename = null;
 
-//        è§£æå‘½ä»¤è¡Œå‚æ•°
+//        ½âÎöÃüÁîĞĞ²ÎÊı
         if (args.length != 1 || isValidFilename(args[0])) {
             System.err.println("usage: java Assembler.Assembler filename.asm");
             System.exit(1);
@@ -32,14 +32,14 @@ public class Assembler {
             filename = args[0];
         }
 
-//        å®ä¾‹åŒ–Parserå¯¹è±¡
+//        ÊµÀı»¯Parser¶ÔÏó
         Parser parser = null;
         parser = getParser(filename, parser);
 
-//        å½“å‰å‘½ä»¤å°†è¢«åŠ è½½åˆ°çš„åœ°å€
+//        µ±Ç°ÃüÁî½«±»¼ÓÔØµ½µÄµØÖ·
 //        int currentRomAddress = -1;
 
-//        åˆ›å»ºè¾“å‡ºæµ(.hackæ–‡ä»¶)
+//        ´´½¨Êä³öÁ÷(.hackÎÄ¼ş)
         String outputFile = filename.substring(0, filename.indexOf(".asm")) + ".hack";
         PrintWriter writer = null;
         try {
@@ -72,7 +72,7 @@ public class Assembler {
                     writer.print("0" + binary);
                     break;
             }
-//            åœ¨æ–°è¡Œå†™ä¸‹ä¸€ä¸ªå‘½ä»¤çš„äºŒè¿›åˆ¶ä»£ç 
+//            ÔÚĞÂĞĞĞ´ÏÂÒ»¸öÃüÁîµÄ¶ş½øÖÆ´úÂë
             if (parser.hasMoreCommands())
                 writer.println("");
         }
@@ -93,7 +93,7 @@ public class Assembler {
         return parser;
     }
 
-//    æ£€æŸ¥è¾“å…¥æµæ–‡ä»¶åæ˜¯ä¸æ˜¯å¯æ¥å—çš„è¾“å…¥ï¼Œå³.asmæ–‡ä»¶
+//    ¼ì²éÊäÈëÁ÷ÎÄ¼şÃûÊÇ²»ÊÇ¿É½ÓÊÜµÄÊäÈë£¬¼´.asmÎÄ¼ş
     private static boolean isValidFilename(String filename) {
         return filename.endsWith(".asm");
     }

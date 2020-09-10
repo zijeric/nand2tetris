@@ -23,7 +23,7 @@ public class Code {
         put("M",   "1110000");
         put("!D",  "0001101");
         put("!A",  "0110011");
-        put("!M",  "1110011");
+        put("!M",  "1110001");
         put("-D",  "0001111");
         put("-A",  "0110011");
         put("-M",  "1110011");
@@ -120,7 +120,7 @@ public class Code {
      * @param decimal
      * @return
      */
-    public static String binary(int decimal) {
+    static String binary(int decimal) {
 
 //        常数大于2^15，二进制形式大于15位 不合规范
         if (decimal > 65535) {

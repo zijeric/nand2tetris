@@ -10,8 +10,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * Compilation: javac Assembler.Assembler.java
- * Execution: java Assembler.Assembler filename.asm
+ * Compilation: javac Assembler/*.java
+ * Execution: java packageName/className path/filename.asm
  * Dependencies: SymbolTable.java, Code.java, Parser.java
  *
  * Takes a Hack assembly program via a file of .asm format,
@@ -26,7 +26,7 @@ public class Assembler {
 
 //        解析命令行参数
         if (args.length != 1 || !isValidFilename(args[0])) {
-            System.err.println("usage: java packageName.className fileName.asm");
+            System.err.println("usage: java packageName/className path/fileName.asm");
             System.exit(1);
         } else {
             filename = args[0];
@@ -46,7 +46,6 @@ public class Assembler {
             writer = new PrintWriter(outputFile);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
 
         while (parser.hasMoreCommands()) {
@@ -76,6 +75,7 @@ public class Assembler {
             if (parser.hasMoreCommands())
                 writer.println("");
         }
+//        关闭资源
         if (writer != null){
             writer.close();
         }
@@ -88,7 +88,6 @@ public class Assembler {
             parser = new Parser(new Scanner(new FileReader(new File(filename))));
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
         return parser;
     }

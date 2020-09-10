@@ -25,7 +25,7 @@ public class Assembler {
         String filename = null;
 
 //        解析命令行参数
-        if (args.length != 1 || !isValidFilename(args[0])) {
+        if (args.length != 1 || !isValidFileName(args[0])) {
             System.err.println("usage: java packageName/className path/fileName.asm");
             System.exit(1);
         } else {
@@ -93,7 +93,7 @@ public class Assembler {
     }
 
 //    检查输入流文件名是不是可接受的输入，即.asm文件
-    private static boolean isValidFilename(String filename) {
+    private static boolean isValidFileName(String filename) {
         return filename.endsWith(".asm");
     }
 

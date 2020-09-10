@@ -9,7 +9,7 @@ import java.util.HashMap;
  * 将Hack汇编语言助记符翻译成二进制码
  * 用于Assembler.java
  */
-public class Code {
+class Code {
 
    /**
     * 指令comp域助记符及其二进制形式的转换表
@@ -60,9 +60,9 @@ public class Code {
 
    /**
     * 根据 是否 需要存储到当前寄存器往binary(指令对应的二进制形式)填充(1/0)
-    * @param symbol
-    * @param binary
-    * @param register
+    * @param symbol dest域助记符
+    * @param binary dest域的二进制表示
+    * @param register 助记符对应的AMD寄存器
     */
     private static void checkDest(String symbol, StringBuilder binary, String register) {
 //      判断输入是否需要存储到当前寄存器

@@ -143,13 +143,15 @@ class Parser {
     }
 
     /**
-     * 根据"@Value", "(Value)"语法拆分字符串
-     * @return 返回Value 或 null
+     * 根据"@Value", "@Variable", "(Symbol)"语法拆分字符串
+     * @return 返回Value、Variable、Symbol 或 null
      */
     String symbol() {
         if (current.startsWith("@")) {
+//            Value | Variable
             return current.substring(1);
         } else if (current.startsWith("(")) {
+//            Symbol
             return current.substring(1, current.indexOf(")"));
         } else {
             return null;

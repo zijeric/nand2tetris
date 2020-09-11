@@ -36,9 +36,28 @@ public class Assembler {
         Parser parser = null;
         parser = getParser(filename, parser);
 
+//        第一次遍历: 构建符号表
+        SymbolTable symbolTable = new SymbolTable();
 //        当前命令将被加载到的地址
-//        int currentRomAddress = -1;
+        int currentRomAddress = -1;
 
+        while (parser.hasMoreCommands()) {
+            parser.advance();
+            parser.skipSpacesAndComments();
+            if (parser.currentLength() == 0) continue;
+
+//            第一次遍历只处理L_COMMAND，添加到symbol table
+            Parser.commandType commandType = parser.CommandType();
+            if (commandType == Parser.commandType.L_COMMAND) {
+                symbolTable.addEntry(parser.symbol(), currentRomAddress + 1);
+            } else if (commandType == Parser.commandType.A_COMMAND || commandType == Parser.commandType.C_COMMAND){
+                currentRomAddress++;
+            }
+        }
+        parser.close();
+
+//        实例化Parser对象
+        parser = getParser(filename, parser);
 //        创建输出流(.hack文件)
         String outputFile = filename.substring(0, filename.indexOf(".asm")) + ".hack";
         PrintWriter writer = null;
@@ -66,7 +85,7 @@ public class Assembler {
                 case L_COMMAND:
                     continue;
                 case A_COMMAND:
-                    String binary = Code.binary(getInt(parser.symbol()));
+                    String binary = Code.binary(getInt(parser.symbol(), symbolTable));
                     assert writer != null;
                     writer.print("0" + binary);
                     break;
@@ -97,8 +116,22 @@ public class Assembler {
         return filename.endsWith(".asm");
     }
 
-    private static int getInt(String input){
-        return Integer.parseInt(input);
+//    将A_COMMAND的符号化常数转换为int类型
+    private static int getInt(String input, SymbolTable symbolTable){
+        try {
+//            当input是符号化常数时，转换为int并返回
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {  // 当input非常数
+//            当符号存在于符号表，根据input返回对应的地址
+            if (symbolTable.contains(input)) {
+                return symbolTable.getAddress(input);
+            } else {
+//                输入是第一次声明的变量，将其加入到符号表
+                int address = symbolTable.getNextAddAndIncrement();
+                symbolTable.addEntry(input, address);
+                return address;
+            }
+        }
     }
 
 }

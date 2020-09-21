@@ -62,7 +62,7 @@ public class Parser {
      * 区分出9种指令？
      * @return 指令类型commandType
      */
-    private commandType CommandType() {
+    commandType CommandType() {
         if (current.contains("push")) {
             return commandType.C_PUSH;
         } else if (current.contains("pop")) {

@@ -29,9 +29,59 @@ public class CodeWriter {
      * @param command 算术指令
      */
     void writeArithmetic(String command) {
-//        switch (command){
-//            case "add":
-//
-//        }
+        switch (command){
+            case "add":
+                writeBinaryArithmetic();
+                writer.println("M=M+D");
+                break;
+            case "sub":
+                writeBinaryArithmetic();
+                writer.println("M=M-D");
+                break;
+            case "neg":
+                writeUnaryArithmetic();
+                writer.println("M=-M");
+                break;
+            case "eq":
+                writeLogical("JEQ");
+                break;
+            case "gt":
+                writeLogical("JGT");
+                break;
+            case "lt":
+                writeLogical("JLT");
+                break;
+            case "and":
+                writeBinaryArithmetic();
+                writer.println("M=M&D");
+                break;
+            case "or":
+                writeBinaryArithmetic();
+                writer.println("M=M|D");
+                break;
+            case "not":
+                writeUnaryArithmetic();
+                writer.println("M=!M");
+                break;
+        }
+    }
+
+    private void writeLogical(String operator) {
+
+    }
+
+    private void writeUnaryArithmetic() {
+        writer.println("@SP");
+        writer.println("A=M-1");
+    }
+
+    private void writeBinaryArithmetic() {
+        writeStoreTopStackAndDec();
+    }
+
+    private void writeStoreTopStackAndDec() {
+        writer.println("@SP");
+        writer.println("AM=M-1");
+        writer.println("D=M");
     }
 }

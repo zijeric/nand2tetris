@@ -3,19 +3,23 @@ package virtual;
 import java.io.PrintWriter;
 
 /**
- * Created by Nolva on 2020/9/14.
+ * 将VM指令翻译成Hack汇编代码，并写入相应的.asm输出文件
  */
-
 public class CodeWriter {
-    private PrintWriter writer;
-    private String fileName;
-    private int logicalFlag;
 
+    private PrintWriter writer;
+//    当前被翻译的.vm文件
+    private String fileName;
+//    逻辑运算符后面的数字
+    private int logicalNum;
+
+//    为写入输出文件作准备
     CodeWriter(PrintWriter writer) {
         this.writer = writer;
-        logicalFlag = 0;
+        logicalNum = 0;
     }
 
+//    通知代码编写者：新的.vm文件的翻译已开始
     void setFileName(String fileName) {
         this.fileName = fileName;
     }

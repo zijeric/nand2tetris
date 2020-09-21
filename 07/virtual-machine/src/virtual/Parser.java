@@ -6,14 +6,15 @@ package virtual;
 import java.util.Scanner;
 
 /**
- * TODO 分析.vm文件，封装对输入代码的访问操作。
- * TODO 读取vm指令并解析，然后为它各个部分提供方便的访问入口。
- * TODO 移除代码中所有空格和注释。
+ * 分析.vm文件，封装对输入代码的访问操作
+ * 读取vm指令并解析，然后为它各个部分提供方便的访问入口
+ * 移除代码中所有空格和注释
  */
 public class Parser {
 
     private Scanner scanner;
     private String current;
+//    正在被解析的.vm文件
     private String fileName;
 
     private final String[] ARITHMETIC_CMD = {"add", "sub", "neg", "eq", "gt", "lt", "and", "or", "not"};
@@ -30,6 +31,9 @@ public class Parser {
         current = scanner.nextLine();
     }
 
+    /**
+     * vm command type
+     */
     enum commandType {
         C_ARITHMETIC,  // 所有算术命令
         C_PUSH,
@@ -42,7 +46,7 @@ public class Parser {
         C_CALL
     }
 
-    void skipSpacesAndComments() {
+    void skipBlanks() {
         if (current.contains("//")){
             current = current.substring(0, current.indexOf("//"));
         }
@@ -55,7 +59,7 @@ public class Parser {
     }
 
     /**
-     * 区分出9中指令？
+     * 区分出9种指令？
      * @return 指令类型commandType
      */
     private commandType CommandType() {
@@ -112,6 +116,10 @@ public class Parser {
         } else return -1;
     }
 
+    void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     String getFileName() {
         return fileName;
     }
@@ -120,6 +128,10 @@ public class Parser {
         scanner.close();
     }
 
+    /**
+     * 遍历算术指令ARITHMETIC_CMD，如果当前指令等于其中一个就返回true
+     * @return 是否为算术指令
+     */
     boolean isArithmeticCmd() {
         for (String cmd : ARITHMETIC_CMD) {
             if (current.equals(cmd)) return true;

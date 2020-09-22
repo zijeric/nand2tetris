@@ -3,30 +3,30 @@ package virtual;
 import java.io.PrintWriter;
 
 /**
- * å°†VMæŒ‡ä»¤ç¿»è¯‘æˆHackæ±‡ç¼–ä»£ç ï¼Œå¹¶å†™å…¥ç›¸åº”çš„.asmè¾“å‡ºæ–‡ä»¶
+ * ½«VMÖ¸Áî·­Òë³ÉHack»ã±à´úÂë£¬²¢Ğ´ÈëÏàÓ¦µÄ.asmÊä³öÎÄ¼ş
  */
-public class CodeWriter {
+class CodeWriter {
 
     private PrintWriter writer;
-//    å½“å‰è¢«ç¿»è¯‘çš„.vmæ–‡ä»¶
+//    µ±Ç°±»·­ÒëµÄ.vmÎÄ¼ş
     private String fileName;
-//    é€»è¾‘è¿ç®—ç¬¦åé¢çš„æ•°å­—
+//    Âß¼­ÔËËã·ûºóÃæµÄÊı×Ö
     private int logicalNum;
 
-//    ä¸ºå†™å…¥è¾“å‡ºæ–‡ä»¶ä½œå‡†å¤‡
+//    ÎªĞ´ÈëÊä³öÎÄ¼ş×÷×¼±¸
     CodeWriter(PrintWriter writer) {
         this.writer = writer;
         logicalNum = 0;
     }
 
-//    é€šçŸ¥ä»£ç ç¼–å†™è€…ï¼šæ–°çš„.vmæ–‡ä»¶çš„ç¿»è¯‘å·²å¼€å§‹
+//    ¿ªÊ¼·­ÒëĞÂµÄ.vmÎÄ¼ş
     void setFileName(String fileName) {
-        this.fileName = fileName;
+        this.fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
     }
 
     /**
-     * å°†ç»™å®šçš„ç®—æœ¯æ“ä½œæ‰€å¯¹åº”çš„æ±‡ç¼–å†™åˆ°è¾“å‡ºæ–‡ä»¶
-     * @param command ç®—æœ¯æŒ‡ä»¤
+     * ½«¸ø¶¨µÄËãÊõ²Ù×÷Ëù¶ÔÓ¦µÄ»ã±àĞ´µ½Êä³öÎÄ¼ş
+     * @param command ËãÊõÖ¸Áî
      */
     void writeArithmetic(String command) {
         switch (command){
@@ -66,22 +66,85 @@ public class CodeWriter {
         }
     }
 
-    private void writeLogical(String operator) {
+    void writePushAndPop(Parser.Command command, String segment, int index) {
 
+        switch (segment) {
+            case "constant":
+                if (command == Parser.Command.C_PUSH) {
+                    writer.println("@" + index);
+                    writer.println("D=A");
+                    getPointerVal();
+                    writeInc();
+                }
+                break;
+            case "local":
+//                TODO complete local segment
+                break;
+        }
     }
 
+    /**
+     *
+     * @param operator write ·ÖÖ§
+     */
+    private void writeLogical(String operator) {
+        decAndGetTopStack();
+        writeUnaryArithmetic();
+        writer.println("@RET_TRUE");
+        writer.println("D;" + operator);
+        writer.println("D=0");
+        writer.println("@CONTINUE");
+        writer.println("0;JMP");
+        writer.println("(RET_TRUE)");
+        writer.println("D=-1");
+        writer.println("(CONTINUE)");
+        getPointerVal();
+        writeInc();
+    }
+
+    /**
+     * Ò»ÔªµÄÂß¼­Ö¸Áî
+     */
     private void writeUnaryArithmetic() {
         writer.println("@SP");
         writer.println("A=M-1");
     }
 
+    /**
+     * ¶şÔªµÄÂß¼­Ö¸Áî
+     */
     private void writeBinaryArithmetic() {
-        writeStoreTopStackAndDec();
+        decAndGetTopStack();
+        writeUnaryArithmetic();
     }
 
-    private void writeStoreTopStackAndDec() {
+    /**
+     * SP×ÔÔö
+     */
+    private void writeInc() {
+        writer.println("@SP");
+        writer.println("M=M+1");
+    }
+
+    /**
+     * SP×Ô¼õ²¢»ñÈ¡Õ»¶¥ÔªËØ
+     */
+    private void decAndGetTopStack() {
         writer.println("@SP");
         writer.println("AM=M-1");
         writer.println("D=M");
+    }
+
+    /**
+     * »ñÈ¡SPÖ¸ÕëµÄÖµ
+     */
+    private void getPointerVal() {
+        writer.println("@SP");
+        writer.println("A=M");
+        writer.println("M=D");
+    }
+
+    void close() {
+        writer.close();
     }
 }

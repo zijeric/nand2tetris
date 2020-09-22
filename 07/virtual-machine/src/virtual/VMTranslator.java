@@ -14,33 +14,33 @@ public class VMTranslator {
     public static void main(String[] args) {
 
         String outputFile = null;
-//        åŒ…å«éœ€è¦è§£æä¸º.asmçš„.vmæ–‡ä»¶
+//        °üº¬ĞèÒª½âÎöÎª.asmµÄ.vmÎÄ¼ş
         ArrayList<Parser> files2parse = new ArrayList<>();
 
-//        è§£æå‘½ä»¤è¡Œå‚æ•°
+//        ½âÎöÃüÁîĞĞ²ÎÊı
         if (args.length != 1) {
             printCommandLineErrorAndExit();
         }
 
-//        æ£€æŸ¥æä¾›çš„å‘½ä»¤è¡Œå‚æ•°ï¼Œä»¥ç¡®å®šå®ƒæ˜¯æœ‰æ•ˆçš„æ–‡ä»¶è¿˜æ˜¯ç›®å½•
-        File file = new File(args[0]);
-//        æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨
-        boolean exists = file.exists();
-//        æ£€æŸ¥æ˜¯å¦ä¸ºç›®å½•
-        boolean isDirectory = file.isDirectory();
-//        æ£€æŸ¥æ˜¯å¦ä¸ºå¸¸è§„çš„æ–‡ä»¶
-        boolean isFile = file.isFile();
+//        ¼ì²éÌá¹©µÄÃüÁîĞĞ²ÎÊı£¬ÒÔÈ·¶¨ËüÊÇÓĞĞ§µÄÎÄ¼ş»¹ÊÇÄ¿Â¼
+        final File file = new File(args[0]);
+//        ¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ
+        final boolean exists = file.exists();
+//        ¼ì²éÊÇ·ñÎªÄ¿Â¼
+        final boolean isDirectory = file.isDirectory();
+//        ¼ì²éÊÇ·ñÎª³£¹æµÄÎÄ¼ş
+        final boolean isFile = file.isFile();
 
         if (!exists) {
             System.err.println(args[0] + "is not a valid file or path !");
             System.exit(1);
-        } else if (isFile && args[0].endsWith(".vm")) {  // å•ä¸ª.vmæ–‡ä»¶
+        } else if (isFile && args[0].endsWith(".vm")) {  // µ¥¸ö.vmÎÄ¼ş
             final Parser parser = getParser(file);
             final String fileName = args[0].substring(0, args[0].indexOf(".vm"));
             parser.setFileName(fileName);
             files2parse.add(parser);
             outputFile = fileName + ".asm";
-        } else if (isDirectory) {  // ç›®å½•ï¼Œæ‰«æå½“ä¸­çš„æ‰€æœ‰.vmæ–‡ä»¶
+        } else if (isDirectory) {  // Ä¿Â¼£¬É¨Ãèµ±ÖĞµÄËùÓĞ.vmÎÄ¼ş
             final File[] files = file.listFiles();
             assert files != null;
             for (final File f : files) {
@@ -52,7 +52,7 @@ public class VMTranslator {
                 }
             }
 
-//            å¦‚æœæä¾›çš„ç›®å½•ä¸åŒ…å«.vmæ–‡ä»¶ï¼Œåˆ™æŠ›å‡ºé”™è¯¯å¹¶é€€å‡º
+//            Èç¹ûÌá¹©µÄÄ¿Â¼²»°üº¬.vmÎÄ¼ş£¬ÔòÅ×³ö´íÎó²¢ÍË³ö
             if (files2parse.size() == 0) {
                 System.err.println("No .vm files to parse in " + args[0]);
                 System.exit(1);
@@ -62,7 +62,7 @@ public class VMTranslator {
         } else {
             printCommandLineErrorAndExit();
         }
-//        å®ä¾‹åŒ–ä¸€ä¸ªcodeWriter
+//        ÊµÀı»¯Ò»¸öcodeWriter
         PrintWriter printWriter = null;
         try {
             assert outputFile != null;
@@ -72,9 +72,9 @@ public class VMTranslator {
         }
         final CodeWriter codeWriter = new CodeWriter(printWriter);
 
-//        éå†Parserå¯¹è±¡ï¼šæ¯ä¸ª.vmæ–‡ä»¶ä¸€æ¬¡
+//        ±éÀúParser¶ÔÏó£ºÃ¿¸ö.vmÎÄ¼şÒ»´Î
         for (final Parser file2parse : files2parse) {
-//            è®¾ç½®å½“å‰æ­£åœ¨è§£æçš„æ–‡ä»¶çš„æ–‡ä»¶å
+//            ÉèÖÃµ±Ç°ÕıÔÚ½âÎöµÄÎÄ¼şµÄÎÄ¼şÃû
             codeWriter.setFileName(file2parse.getFileName());
             while (file2parse.hasMoreCommand()) {
                 file2parse.advance();
@@ -82,12 +82,19 @@ public class VMTranslator {
                 if (file2parse.Length() == 0)
                     continue;
 
-                if (file2parse.CommandType() == Parser.commandType.C_PUSH
-                        || file2parse.CommandType() == Parser.commandType.C_POP) {
-                    
+//                Èç¹ûÊÇ"push" OR "pop"ÃüÁî
+                if (file2parse.CommandType() == Parser.Command.C_PUSH
+                        || file2parse.CommandType() == Parser.Command.C_POP) {
+//                    TODO codeWriterÊµÏÖºó£¬±àĞ´pop&push
+                    codeWriter.writePushAndPop(file2parse.CommandType(), file2parse.arg1(),
+                            file2parse.arg2());
+                } else if (file2parse.CommandType() == Parser.Command.C_ARITHMETIC) {
+                    codeWriter.writeArithmetic(file2parse.command());
                 }
             }
+            file2parse.close();
         }
+        codeWriter.close();
     }
 
     private static Parser getParser(File file) {

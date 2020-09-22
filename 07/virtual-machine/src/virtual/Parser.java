@@ -6,15 +6,15 @@ package virtual;
 import java.util.Scanner;
 
 /**
- * åˆ†æ.vmæ–‡ä»¶ï¼Œå°è£…å¯¹è¾“å…¥ä»£ç çš„è®¿é—®æ“ä½œ
- * è¯»å–vmæŒ‡ä»¤å¹¶è§£æï¼Œç„¶åä¸ºå®ƒå„ä¸ªéƒ¨åˆ†æä¾›æ–¹ä¾¿çš„è®¿é—®å…¥å£
- * ç§»é™¤ä»£ç ä¸­æ‰€æœ‰ç©ºæ ¼å’Œæ³¨é‡Š
+ * ·ÖÎö.vmÎÄ¼ş£¬·â×°¶ÔÊäÈë´úÂëµÄ·ÃÎÊ²Ù×÷
+ * ¶ÁÈ¡vmÖ¸Áî²¢½âÎö£¬È»ºóÎªËü¸÷¸ö²¿·ÖÌá¹©·½±ãµÄ·ÃÎÊÈë¿Ú
+ * ÒÆ³ı´úÂëÖĞËùÓĞ¿Õ¸ñºÍ×¢ÊÍ
  */
-public class Parser {
+class Parser {
 
     private Scanner scanner;
     private String current;
-//    æ­£åœ¨è¢«è§£æçš„.vmæ–‡ä»¶
+//    ÕıÔÚ±»½âÎöµÄ.vmÎÄ¼ş
     private String fileName;
 
     private final String[] ARITHMETIC_CMD = {"add", "sub", "neg", "eq", "gt", "lt", "and", "or", "not"};
@@ -34,15 +34,15 @@ public class Parser {
     /**
      * vm command type
      */
-    enum commandType {
-        C_ARITHMETIC,  // æ‰€æœ‰ç®—æœ¯å‘½ä»¤
+    enum Command {
+        C_ARITHMETIC,  // ËùÓĞËãÊõÃüÁî
         C_PUSH,
         C_POP,
-        C_LABEL,
-        C_GOTO,
-        C_IF,
+//        C_LABEL,
+//        C_GOTO,
+//        C_IF,
         C_FUNCTION,
-        C_RETURN,
+//        C_RETURN,
         C_CALL
     }
 
@@ -51,7 +51,8 @@ public class Parser {
             current = current.substring(0, current.indexOf("//"));
         }
         current = current.replace(" ", "");
-        current = current.replace("/t", "");
+        current = current.replace("\n", "");
+        current = current.replace("\t", "");
     }
 
     int Length() {
@@ -59,33 +60,24 @@ public class Parser {
     }
 
     /**
-     * åŒºåˆ†å‡º9ç§æŒ‡ä»¤ï¼Ÿ
-     * @return æŒ‡ä»¤ç±»å‹commandType
+     * Çø·Ö³ö9ÖÖÖ¸Áî£¿
+     * chap7: Çø·Ö"push", "pop", arithmetic cmd
+     * @return Ö¸ÁîÀàĞÍcommandType
      */
-    commandType CommandType() {
-        if (current.contains("push")) {
-            return commandType.C_PUSH;
-        } else if (current.contains("pop")) {
-            return commandType.C_POP;
-        } else if (current.contains("label")) {
-            return commandType.C_LABEL;
-        } else if (current.contains("goto")) {
-            return commandType.C_GOTO;
-        } else if (current.contains("if")) {
-            return commandType.C_IF;
-        } else if (current.contains("fun")) {
-            return commandType.C_FUNCTION;
-        } else if (current.contains("return")) {
-            return commandType.C_RETURN;
-        } else if (current.contains("call")) {
-            return commandType.C_CALL;
+    Command CommandType() {
+        if (current.startsWith("push")) {
+            return Command.C_PUSH;
+        } else if (current.startsWith("pop")) {
+            return Command.C_POP;
+        } else if (isArithmeticCmd()){
+            return Command.C_ARITHMETIC;
         } else {
-            return commandType.C_ARITHMETIC;
+            return null;
         }
     }
 
     /**
-     * @return å®Œæ•´çš„æŒ‡ä»¤
+     * @return ÍêÕûµÄÖ¸Áî
      */
     String command() {
         return current.split("\\s+")[0];
@@ -93,27 +85,27 @@ public class Parser {
 
     /**
      * forbid C_RETURN
-     * @return è¿”å›å½“å‰æŒ‡ä»¤ç¬¬ä¸€ä¸ªå‚æ•°
+     * @return ·µ»Øµ±Ç°Ö¸ÁîµÚÒ»¸ö²ÎÊı
      */
     String arg1() {
-        if (CommandType() == commandType.C_ARITHMETIC){
-            return current;
-        } else {
+//        if (CommandType() == commandType.C_ARITHMETIC){
+//            return current;
+//        } else {
             return current.split("\\s+")[1];
-        }
+//        }
     }
 
     /**
      * only for C_PUSH, C_POP, C_FUNCTION, C_CALL
-     * @return è¿”å›å½“å‰æŒ‡ä»¤çš„ç¬¬äºŒä¸ªå‚æ•°segment
+     * @return ·µ»Øµ±Ç°Ö¸ÁîµÄµÚ¶ş¸ö²ÎÊısegment
      */
-    int Arg2() {
-        if (CommandType() == commandType.C_PUSH ||
-                CommandType() == commandType.C_POP ||
-                CommandType() == commandType.C_FUNCTION ||
-                CommandType() == commandType.C_CALL){
+    int arg2() {
+//        if (CommandType() == commandType.C_PUSH ||
+//                CommandType() == commandType.C_POP ||
+//                CommandType() == commandType.C_FUNCTION ||
+//                CommandType() == commandType.C_CALL){
             return Integer.parseInt(current.split("\\s+")[2]);
-        } else return -1;
+//        } else return -1;
     }
 
     void setFileName(String fileName) {
@@ -129,10 +121,10 @@ public class Parser {
     }
 
     /**
-     * éå†ç®—æœ¯æŒ‡ä»¤ARITHMETIC_CMDï¼Œå¦‚æœå½“å‰æŒ‡ä»¤ç­‰äºå…¶ä¸­ä¸€ä¸ªå°±è¿”å›true
-     * @return æ˜¯å¦ä¸ºç®—æœ¯æŒ‡ä»¤
+     * ±éÀúËãÊõÖ¸ÁîARITHMETIC_CMD£¬Èç¹ûµ±Ç°Ö¸ÁîµÈÓÚÆäÖĞÒ»¸ö¾Í·µ»Øtrue
+     * @return ÊÇ·ñÎªËãÊõÖ¸Áî
      */
-    boolean isArithmeticCmd() {
+    private boolean isArithmeticCmd() {
         for (String cmd : ARITHMETIC_CMD) {
             if (current.equals(cmd)) return true;
         }

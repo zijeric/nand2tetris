@@ -5,8 +5,11 @@ package test;
 
 public class testParser {
     public static void main(String[] args) {
-        String cmd = "pop pointer 1";
-        String str = cmd.split("\\s+")[0];  // [1], [2]...
-        System.out.println(str);
+//        String cmd = "pop pointer 1";
+//        String str = cmd.split("\\s+")[0];  // [1], [2]...
+//        System.out.println(str);
+        String fileName = "/user/src/translator/virtualTest.vm";
+        String name = fileName.substring(fileName.lastIndexOf("/") + 1);
+        System.out.println(name);
     }
 }

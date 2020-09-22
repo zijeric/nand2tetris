@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650c9768-524b-4023-a9f3-bb88c237a25b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Assembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/test/testParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/test/testParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/CodeWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/CodeWriter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser$commandType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/VMTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/VMTranslator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/testParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/CodeWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/CodeWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/VMTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/VMTranslator.java" afterDir="false" />
@@ -21,25 +30,48 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="virtual-machine" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="36" column="20" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="20" />
+            <state relative-caret-position="27">
+              <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+              <folding>
+                <element signature="e#420#421#0" expanded="true" />
+                <element signature="e#458#459#0" expanded="true" />
+                <element signature="e#490#491#0" expanded="true" />
+                <element signature="e#534#535#0" expanded="true" />
+                <element signature="e#556#557#0" expanded="true" />
+                <element signature="e#600#601#0" expanded="true" />
+                <element signature="e#1095#1096#0" expanded="true" />
+                <element signature="e#1134#1135#0" expanded="true" />
+                <element signature="e#1646#1647#0" expanded="true" />
+                <element signature="e#1693#1694#0" expanded="true" />
+                <element signature="e#2433#2434#0" expanded="true" />
+                <element signature="e#2473#2474#0" expanded="true" />
+                <element signature="e#2501#2502#0" expanded="true" />
+                <element signature="e#2532#2533#0" expanded="true" />
+                <element signature="e#2552#2553#0" expanded="true" />
+                <element signature="e#2583#2584#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="83" column="33" lean-forward="true" selection-start-line="83" selection-start-column="33" selection-end-line="83" selection-end-column="33" />
+            <state relative-caret-position="405">
+              <caret line="72" column="45" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
               <folding>
-                <element signature="e#1852#1853#0" expanded="true" />
-                <element signature="e#1891#1892#0" expanded="true" />
+                <element signature="e#416#417#0" expanded="true" />
+                <element signature="e#493#494#0" expanded="true" />
+                <element signature="e#3633#3634#0" expanded="true" />
+                <element signature="e#3663#3664#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -48,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+            <state relative-caret-position="219">
+              <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,6 +98,18 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>writePointerVal</find>
+      <find>getStoreTopStackAndDec</find>
+      <find>fileName</find>
+      <find>writeUnaryArithmetic</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>getPointerVal</replace>
+      <replace>decAndGetTopStack</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -73,9 +117,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/test/testParser.java" />
-        <option value="$PROJECT_DIR$/src/virtual/Parser.java" />
+        <option value="$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/VMTranslator.java" />
+        <option value="$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/CodeWriter.java" />
         <option value="$PROJECT_DIR$/src/virtual/VMTranslator.java" />
         <option value="$PROJECT_DIR$/src/virtual/CodeWriter.java" />
+        <option value="$PROJECT_DIR$/src/virtual/Parser.java" />
       </list>
     </option>
   </component>
@@ -89,9 +135,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="755" />
-    <option name="width" value="1185" />
-    <option name="height" value="1040" />
+    <option name="x" value="688" />
+    <option name="width" value="1298" />
+    <option name="height" value="1042" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -99,8 +145,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,12 +173,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600674088427" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600782195489" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -189,11 +235,16 @@
       <workItem from="1600670891750" duration="3037000" />
       <workItem from="1600674262512" duration="523000" />
       <workItem from="1600688052272" duration="5846000" />
+      <workItem from="1600741189629" duration="772000" />
+      <workItem from="1600742912639" duration="79000" />
+      <workItem from="1600743159784" duration="1831000" />
+      <workItem from="1600754459694" duration="4700000" />
+      <workItem from="1600774682977" duration="7012000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17748000" />
+    <option name="totallyTimeSpent" value="32142000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -205,19 +256,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="604" y="0" width="948" height="832" extended-state="0" />
+    <frame x="459" y="0" width="1038" height="833" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2483146" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1622449" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="JRebel" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="UI Designer" order="6" />
-      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info id="Favorites" order="7" side_tool="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3295129" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -225,7 +277,7 @@
       <window_info anchor="bottom" id="FindBugs-IDEA" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32780084" />
       <window_info anchor="bottom" id="Problems" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
@@ -240,7 +292,7 @@
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Word Book" order="6" side_tool="true" />
       <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Key Promoter X" order="8" />
+      <window_info anchor="right" id="Key Promoter X" order="8" weight="0.3297587" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="10" />
     </layout>
@@ -250,24 +302,10 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/virtual.java" />
-    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="2685" column="18" selection-start-line="2685" selection-start-column="18" selection-end-line="2685" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/util/regex/Pattern.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="1406" column="12" selection-start-line="1406" selection-start-column="12" selection-end-line="1406" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/testParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
         </state>
       </provider>
     </entry>
@@ -278,30 +316,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
+    <entry file="file://$PROJECT_DIR$/../../06/assembler/src/Assembler/Assembler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="36" column="20" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="20" />
+        <state relative-caret-position="-1215">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/VMTranslator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="77" column="60" selection-start-line="77" selection-start-column="60" selection-end-line="77" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/CodeWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="22" column="74" selection-start-line="22" selection-start-column="74" selection-end-line="22" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="1849" column="41" selection-start-line="1849" selection-start-column="41" selection-end-line="1849" selection-end-column="41" />
+          <folding>
+            <element signature="e#71582#71583#0" expanded="true" />
+            <element signature="e#71631#71632#0" expanded="true" />
+            <element signature="e#72475#72476#0" expanded="true" />
+            <element signature="e#72551#72552#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/lang/StringUTF16.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-261">
+          <caret line="1431" column="22" selection-start-line="1431" selection-start-column="22" selection-end-line="1431" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/testParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="53" lean-forward="true" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="72" column="45" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
+          <folding>
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#493#494#0" expanded="true" />
+            <element signature="e#3633#3634#0" expanded="true" />
+            <element signature="e#3663#3664#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+        <state relative-caret-position="219">
+          <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="83" column="33" lean-forward="true" selection-start-line="83" selection-start-column="33" selection-end-line="83" selection-end-column="33" />
+        <state relative-caret-position="27">
+          <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
           <folding>
-            <element signature="e#1852#1853#0" expanded="true" />
-            <element signature="e#1891#1892#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#458#459#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#534#535#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+            <element signature="e#600#601#0" expanded="true" />
+            <element signature="e#1095#1096#0" expanded="true" />
+            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#1646#1647#0" expanded="true" />
+            <element signature="e#1693#1694#0" expanded="true" />
+            <element signature="e#2433#2434#0" expanded="true" />
+            <element signature="e#2473#2474#0" expanded="true" />
+            <element signature="e#2501#2502#0" expanded="true" />
+            <element signature="e#2532#2533#0" expanded="true" />
+            <element signature="e#2552#2553#0" expanded="true" />
+            <element signature="e#2583#2584#0" expanded="true" />
           </folding>
         </state>
       </provider>

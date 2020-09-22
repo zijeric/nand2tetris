@@ -24,7 +24,7 @@ public class Assembler {
 
         String filename = null;
 
-//        ½âÎöÃüÁîĞĞ²ÎÊı
+//        è§£æå‘½ä»¤è¡Œå‚æ•°
         if (args.length != 1 || !isValidFileName(args[0])) {
             System.err.println("usage: java packageName/className path/fileName.asm");
             System.exit(1);
@@ -32,13 +32,13 @@ public class Assembler {
             filename = args[0];
         }
 
-//        ÊµÀı»¯Parser¶ÔÏó
+//        å®ä¾‹åŒ–Parserå¯¹è±¡
         Parser parser = null;
         parser = getParser(filename, parser);
 
-//        µÚÒ»´Î±éÀú: ¹¹½¨·ûºÅ±í
+//        ç¬¬ä¸€æ¬¡éå†: æ„å»ºç¬¦å·è¡¨
         SymbolTable symbolTable = new SymbolTable();
-//        µ±Ç°ÃüÁî½«±»¼ÓÔØµ½µÄµØÖ·
+//        å½“å‰å‘½ä»¤å°†è¢«åŠ è½½åˆ°çš„åœ°å€
         int currentRomAddress = -1;
 
         while (parser.hasMoreCommands()) {
@@ -46,7 +46,7 @@ public class Assembler {
             parser.skipSpacesAndComments();
             if (parser.currentLength() == 0) continue;
 
-//            µÚÒ»´Î±éÀúÖ»´¦ÀíL_COMMAND£¬Ìí¼Óµ½symbol table
+//            ç¬¬ä¸€æ¬¡éå†åªå¤„ç†L_COMMANDï¼Œæ·»åŠ åˆ°symbol table
             Parser.commandType commandType = parser.CommandType();
             if (commandType == Parser.commandType.L_COMMAND) {
                 symbolTable.addEntry(parser.symbol(), currentRomAddress + 1);
@@ -56,9 +56,9 @@ public class Assembler {
         }
         parser.close();
 
-//        ÊµÀı»¯Parser¶ÔÏó
+//        å®ä¾‹åŒ–Parserå¯¹è±¡
         parser = getParser(filename, parser);
-//        ´´½¨Êä³öÁ÷(.hackÎÄ¼ş)
+//        åˆ›å»ºè¾“å‡ºæµ(.hackæ–‡ä»¶)
         String outputFile = filename.substring(0, filename.indexOf(".asm")) + ".hack";
         PrintWriter writer = null;
         try {
@@ -90,11 +90,11 @@ public class Assembler {
                     writer.print("0" + binary);
                     break;
             }
-//            ÔÚĞÂĞĞĞ´ÏÂÒ»¸öÃüÁîµÄ¶ş½øÖÆ´úÂë
+//            åœ¨æ–°è¡Œå†™ä¸‹ä¸€ä¸ªå‘½ä»¤çš„äºŒè¿›åˆ¶ä»£ç 
             if (parser.hasMoreCommands())
                 writer.println("");
         }
-//        ¹Ø±Õ×ÊÔ´
+//        å…³é—­èµ„æº
         if (writer != null){
             writer.close();
         }
@@ -111,22 +111,22 @@ public class Assembler {
         return parser;
     }
 
-//    ¼ì²éÊäÈëÁ÷ÎÄ¼şÃûÊÇ²»ÊÇ¿É½ÓÊÜµÄÊäÈë£¬¼´.asmÎÄ¼ş
+//    æ£€æŸ¥è¾“å…¥æµæ–‡ä»¶åæ˜¯ä¸æ˜¯å¯æ¥å—çš„è¾“å…¥ï¼Œå³.asmæ–‡ä»¶
     private static boolean isValidFileName(String filename) {
         return filename.endsWith(".asm");
     }
 
-//    ½«A_COMMANDµÄ·ûºÅ»¯³£Êı×ª»»ÎªintÀàĞÍ
+//    å°†A_COMMANDçš„ç¬¦å·åŒ–å¸¸æ•°è½¬æ¢ä¸ºintç±»å‹
     private static int getInt(String input, SymbolTable symbolTable){
         try {
-//            µ±inputÊÇ·ûºÅ»¯³£ÊıÊ±£¬×ª»»Îªint²¢·µ»Ø
+//            å½“inputæ˜¯ç¬¦å·åŒ–å¸¸æ•°æ—¶ï¼Œè½¬æ¢ä¸ºintå¹¶è¿”å›
             return Integer.parseInt(input);
-        } catch (NumberFormatException e) {  // µ±input·Ç³£Êı
-//            µ±·ûºÅ´æÔÚÓÚ·ûºÅ±í£¬¸ù¾İinput·µ»Ø¶ÔÓ¦µÄµØÖ·
+        } catch (NumberFormatException e) {  // å½“inputéå¸¸æ•°
+//            å½“ç¬¦å·å­˜åœ¨äºç¬¦å·è¡¨ï¼Œæ ¹æ®inputè¿”å›å¯¹åº”çš„åœ°å€
             if (symbolTable.contains(input)) {
                 return symbolTable.getAddress(input);
             } else {
-//                ÊäÈëÊÇµÚÒ»´ÎÉùÃ÷µÄ±äÁ¿£¬½«Æä¼ÓÈëµ½·ûºÅ±í
+//                è¾“å…¥æ˜¯ç¬¬ä¸€æ¬¡å£°æ˜çš„å˜é‡ï¼Œå°†å…¶åŠ å…¥åˆ°ç¬¦å·è¡¨
                 int address = symbolTable.getNextAddAndIncrement();
                 symbolTable.addEntry(input, address);
                 return address;

@@ -56,6 +56,6 @@ int thread_error = pthread_create(&posix_tread_id, &attr, posix_thread_mainrouti
 ### 什么时候使用栈什么时候使用堆
 
 - 需要申请较大内存空间（比如struct，array之类的），而且需要该变量存在较长时间，就是将该变量放在**堆**中；
-- 如果需要动态修改struct或者array的大小，将该变量放在**堆**上。使用`malloc()，calloc()，realloc()和free()`等函数来管理内存；
+- 如果需要动态修改struct或者array的大小，将该变量放在**堆**上。使用`malloc()`，`calloc()`，`realloc()`和`free()`等函数来管理内存；
 - 如果使用相对较小的变量，并且只在函数中使用它们，此时该变量就存在于栈上。这样做会更快而且更简单。
 

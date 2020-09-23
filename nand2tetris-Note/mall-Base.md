@@ -340,20 +340,20 @@ vagrant ssh 开启SSH，并登陆到centos7
 
 
 ​    
-    [root@hadoop-104 conf]# cat my.cnf
-    [client]
-    default-character-set=utf8
-    [mysql]
-    default-character-set=utf8
-    [mysqld]
-    init_connect='SET collation_connection = utf8_unicode_ci'
-    init_connect='SET NAMES utf8'
-    character-set-server=utf8
-    collation-server=utf8_unicode_ci
-    skip-character-set-client-handshake
-    skip-name-resolve
-    [root@hadoop-104 conf]# 
-    
+​    [root@hadoop-104 conf]# cat my.cnf
+​    [client]
+​    default-character-set=utf8
+​    [mysql]
+​    default-character-set=utf8
+​    [mysqld]
+​    init_connect='SET collation_connection = utf8_unicode_ci'
+​    init_connect='SET NAMES utf8'
+​    character-set-server=utf8
+​    collation-server=utf8_unicode_ci
+​    skip-character-set-client-handshake
+​    skip-name-resolve
+​    [root@hadoop-104 conf]# 
+​    
     [root@hadoop-104 conf]# docker restart mysql
     mysql
     [root@hadoop-104 conf]# 
@@ -916,11 +916,11 @@ Nacos支持“Namespace+group+data ID”的配置解决方案。
 
 ​    
 ​    
-    mybatis-plus:
-      global-config:
-        db-config:
-          id-type: auto
-      mapper-locations: classpath:/mapper/**/*.xml
+​    mybatis-plus:
+​      global-config:
+​        db-config:
+​          id-type: auto
+​      mapper-locations: classpath:/mapper/**/*.xml
 
 
 ​    
@@ -1008,9 +1008,9 @@ Nacos支持“Namespace+group+data ID”的配置解决方案。
 
 
 ​    
-    spring.cloud.nacos.config.extension-configs[2].data-id=other.yml
-    spring.cloud.nacos.config.extension-configs[2].group=dev
-    spring.cloud.nacos.config.extension-configs[2].refresh=true
+​    spring.cloud.nacos.config.extension-configs[2].data-id=other.yml
+​    spring.cloud.nacos.config.extension-configs[2].group=dev
+​    spring.cloud.nacos.config.extension-configs[2].refresh=true
 
 
 "spring.cloud.nacos.config.ext-config"已经被废弃，建议使用“spring.cloud.nacos.config.extension-configs”
@@ -1280,9 +1280,9 @@ v-on是按钮的单击事件：
 
 
 ​    
-        <!-- 表单项，自定义组件 -->
-        <div id="app">
-    
+​        <!-- 表单项，自定义组件 -->
+​        <div id="app">
+​    
             精通的语言：
                 <input type="checkbox" v-model="language" value="Java"> java<br/>
                 <input type="checkbox" v-model="language" value="PHP"> PHP<br/>
@@ -1396,8 +1396,8 @@ v-on:click也可以写作@click
 
 
 ​                
-            </ul>
-    
+​            </ul>
+​    
             <ul>
                 <li v-for="(num,index) in nums" :key="index"></li>
             </ul>
@@ -1512,17 +1512,17 @@ v-on:click也可以写作@click
 
 
 ​    
-        <script>
-            //1、全局声明注册一个组件
-            Vue.component("counter", {
-                template: `<button v-on:click="count++">我被点击了 {{count}} 次</button>`,
-                data() {
-                    return {
-                        count: 1
-                    }
-                }
-            });
-    
+​        <script>
+​            //1、全局声明注册一个组件
+​            Vue.component("counter", {
+​                template: `<button v-on:click="count++">我被点击了 {{count}} 次</button>`,
+​                data() {
+​                    return {
+​                        count: 1
+​                    }
+​                }
+​            });
+​    
             //2、局部声明一个组件
             const buttonCounter = {
                 template: `<button v-on:click="count++">我被点击了 {{count}} 次~~~</button>`,
@@ -1671,11 +1671,11 @@ v-on:click也可以写作@click
 
 
 ​    
-    mybatis-plus:
-      global-config:
-        db-config:
-          id-type: auto
-      mapper-locations: classpath:/mapper/**/*.xml
+​    mybatis-plus:
+​      global-config:
+​        db-config:
+​          id-type: auto
+​      mapper-locations: classpath:/mapper/**/*.xml
 
 
 ​    
@@ -1737,9 +1737,9 @@ v-on:click也可以写作@click
 
 ​    
 ​    
-            return level1Menus;
-        }
-    
+​            return level1Menus;
+​        }
+​    
         public List<CategoryEntity> getChildrens(CategoryEntity root,List<CategoryEntity> all){
     
             List<CategoryEntity> childrens = all.stream().filter(item -> {
@@ -2300,11 +2300,11 @@ mybatis-plus的逻辑删除：
 
 
 ​    
-            })
-            .catch(() => {
-              //取消删除
-            });
-        },
+​            })
+​            .catch(() => {
+​              //取消删除
+​            });
+​        },
 
 
 17\. 品牌管理菜单
@@ -2630,9 +2630,9 @@ bootstrap.properties
 
 
 ​    
-        @Autowired
-        OSSClient ossClient;
-    
+​        @Autowired
+​        OSSClient ossClient;
+​    
         @Test
         public void testUpload() throws FileNotFoundException {
             // Endpoint以杭州为例，其它Region请按实际情况填写。
@@ -2775,22 +2775,22 @@ https://help.aliyun.com/document\_detail/31926.html?spm=a2c4g.11186623.6.1527.22
 
 
 ​    
-        目录: D:\Project\gulimall\renren-fast-vue\src\components\upload
+​        目录: D:\Project\gulimall\renren-fast-vue\src\components\upload
 
 
 ​    
-    Mode                LastWriteTime         Length Name
-    ----                -------------         ------ ----
-    -a----  2020/4/29 星期三     12:0           3122 multiUpload.vue
-                                    2
-    -a----  2019/11/11 星期一     21:            343 policy.js
-                                   20
-    -a----  2020/4/29 星期三     12:0           3053 singleUpload.vue
-                                    1
+​    Mode                LastWriteTime         Length Name
+​    ----                -------------         ------ ----
+​    -a----  2020/4/29 星期三     12:0           3122 multiUpload.vue
+​                                    2
+​    -a----  2019/11/11 星期一     21:            343 policy.js
+​                                   20
+​    -a----  2020/4/29 星期三     12:0           3053 singleUpload.vue
+​                                    1
 
 
 ​    
-    PS D:\Project\gulimall\renren-fast-vue\src\components\upload>
+​    PS D:\Project\gulimall\renren-fast-vue\src\components\upload>
 
 
 修改这两个文件的配置后
@@ -3059,16 +3059,16 @@ The annotated element must not be null and must contain at least one non-whitesp
 
 
 ​    
-        @ExceptionHandler(value = Exception.class)
-        public R handleValidException(MethodArgumentNotValidException exception){
-            Map<String,String> map=new HashMap<>();
-            BindingResult bindingResult = exception.getBindingResult();
-            bindingResult.getFieldErrors().forEach(fieldError -> {
-                String message = fieldError.getDefaultMessage();
-                String field = fieldError.getField();
-                map.put(field,message);
-            });
-    
+​        @ExceptionHandler(value = Exception.class)
+​        public R handleValidException(MethodArgumentNotValidException exception){
+​            Map<String,String> map=new HashMap<>();
+​            BindingResult bindingResult = exception.getBindingResult();
+​            bindingResult.getFieldErrors().forEach(fieldError -> {
+​                String message = fieldError.getDefaultMessage();
+​                String field = fieldError.getField();
+​                map.put(field,message);
+​            });
+​    
             log.error("数据校验出现问题{},异常类型{}",exception.getMessage(),exception.getClass());
             return R.error(400,"数据校验出现问题").put("data",map);
         }
@@ -3214,9 +3214,9 @@ Other SmartValidator implementations may support class arguments in other ways a
 
 
 ​    
-            return  set.contains(value);
-        }
-    }
+​            return  set.contains(value);
+​        }
+​    }
 
 
 ​    

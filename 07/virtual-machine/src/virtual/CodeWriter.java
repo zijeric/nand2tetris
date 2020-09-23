@@ -68,6 +68,8 @@ class CodeWriter {
 
     /**
      * 写入(Push/Pop)指令对应的汇编指令
+     * segment(local段, argument段, this/that段)：RAM中存储的是对应段的基地址base
+     * (temp段, pointer段, static段)：将段的值直接映射到RAM
      * @param command 指令类型(Push/Pop)
      * @param segment 指令后的第一个参数，segment(constant段, local段, argument段...)
      * @param index 对应segment段的索引
@@ -117,17 +119,35 @@ class CodeWriter {
                 if (command == Parser.Command.C_PUSH) {
                     int address = 5 + index;
                     String location = "@" + address;
-                    write5Push(location);
+                    writeMappedPush(location);
                 } else if (command == Parser.Command.C_POP) {
                     int address = 5 + index;
                     String location = "@" + address;
-                    write5Pop(location);
+                    writeMappedPop(location);
                 }
                 break;
             case "pointer":
 //                TODO pointer & static implementation
+                if (command == Parser.Command.C_PUSH) {
+                    if (index == 0) {
+                        writeMappedPush("@THIS");
+                    } else if (index == 1) {
+                        writeMappedPush("@THAT");
+                    }
+                } else if (command == Parser.Command.C_POP) {
+                    if (index == 0) {
+                        writeMappedPop("@THIS");
+                    } else if (index == 1) {
+                        writeMappedPop("@THAT");
+                    }
+                }
                 break;
             case "static":
+                if (command == Parser.Command.C_PUSH) {
+                    writeMappedPush("@" + fileName + "." + index);
+                } else if (command == Parser.Command.C_POP) {
+                    writeMappedPop("@" + fileName + "." + index);
+                }
                 break;
         }
     }
@@ -135,9 +155,9 @@ class CodeWriter {
     /**
      * temp: stored in RAM locations 5 to 12 (8个)
      * addr = (5+i), SP--, *addr = *SP
-     * @param location @(5+index)
+     * @param location 直接映射在RAM的段地址
      */
-    private void write5Pop(String location) {
+    private void writeMappedPop(String location) {
         decAndPopTopStack();
         writer.println(location);
         writer.println("M=D");
@@ -145,12 +165,14 @@ class CodeWriter {
 
     /**
      * temp: stored in RAM locations 5 to 12 (8个)
-     * (TEMP段无指针映射)直接将值存储在D寄存器，并PushD2StackAndInc
+     * 压入堆栈，将段直接映射到RAM
+     * 直接将值存储在D寄存器，并PushD2StackAndInc
      * addr = (5+i), *SP = *addr, SP++
      * @param location @(5+index)
      */
-    private void write5Push(String location) {
+    private void writeMappedPush(String location) {
         writer.println(location);
+//        D=M, 映射地址M存储到D寄存器
         writer.println("D=M");
         PushD2StackAndInc();
     }
@@ -177,6 +199,7 @@ class CodeWriter {
     }
 
     /**
+     * 压入堆栈以查找指向虚拟段基地址的符号
      * 写入由基地址和索引(base+i)构建的Push指令
      * addr = segmentPointer + i, *SP = *addr, SP++
      * @param segmentPointer segment段的指针

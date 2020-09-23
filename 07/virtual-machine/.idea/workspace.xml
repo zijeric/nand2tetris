@@ -2,20 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650c9768-524b-4023-a9f3-bb88c237a25b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Assembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Assembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../06/assembler/src/Assembler/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/10900.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/10900.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/test/testParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/test/testParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAdd.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAdd.cmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAdd.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAdd.tst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAdd.vm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/SimpleAddVME.tst" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/CodeWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/CodeWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser$commandType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser$Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser$Command.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/Parser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/virtual/VMTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/virtual-machine/virtual/VMTranslator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/testParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/testParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAdd.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAdd.cmp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAdd.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAdd.tst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAdd.vm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SimpleAddVME.tst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/virtual/CodeWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/CodeWriter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/CodeWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/CodeWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/virtual/Parser$Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/Parser$Command.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/virtual/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/Parser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/virtual/VMTranslator.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/VMTranslator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/VMTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/VMTranslator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../nand2tetris-Note/C7-虚拟机Ⅰ堆栈运算.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../nand2tetris-Note/C7-虚拟机Ⅰ堆栈运算.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,11 +46,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+            <state relative-caret-position="247">
+              <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
               <folding>
                 <element signature="e#420#421#0" expanded="true" />
                 <element signature="e#458#459#0" expanded="true" />
@@ -47,31 +58,24 @@
                 <element signature="e#534#535#0" expanded="true" />
                 <element signature="e#556#557#0" expanded="true" />
                 <element signature="e#600#601#0" expanded="true" />
-                <element signature="e#1095#1096#0" expanded="true" />
-                <element signature="e#1134#1135#0" expanded="true" />
-                <element signature="e#1646#1647#0" expanded="true" />
-                <element signature="e#1693#1694#0" expanded="true" />
-                <element signature="e#2433#2434#0" expanded="true" />
-                <element signature="e#2473#2474#0" expanded="true" />
-                <element signature="e#2501#2502#0" expanded="true" />
-                <element signature="e#2532#2533#0" expanded="true" />
-                <element signature="e#2552#2553#0" expanded="true" />
-                <element signature="e#2583#2584#0" expanded="true" />
+                <element signature="e#1671#1672#0" expanded="true" />
+                <element signature="e#1718#1719#0" expanded="true" />
+                <element signature="e#2620#2621#0" expanded="true" />
+                <element signature="e#2679#2680#0" expanded="true" />
+                <element signature="e#2730#2731#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="72" column="45" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
+            <state relative-caret-position="135">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
               <folding>
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#493#494#0" expanded="true" />
-                <element signature="e#3633#3634#0" expanded="true" />
-                <element signature="e#3663#3664#0" expanded="true" />
+                <element signature="e#410#411#0" expanded="true" />
+                <element signature="e#491#492#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+            <state relative-caret-position="3410">
+              <caret line="133" column="18" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,10 +108,12 @@
       <find>getStoreTopStackAndDec</find>
       <find>fileName</find>
       <find>writeUnaryArithmetic</find>
+      <find>logicalNum</find>
     </findStrings>
     <replaceStrings>
       <replace>getPointerVal</replace>
       <replace>decAndGetTopStack</replace>
+      <replace>logicalIndex</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -120,8 +126,8 @@
         <option value="$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/VMTranslator.java" />
         <option value="$PROJECT_DIR$/../../../Nand2Tetris-Java/Project7/src/VMTranslator/CodeWriter.java" />
         <option value="$PROJECT_DIR$/src/virtual/VMTranslator.java" />
-        <option value="$PROJECT_DIR$/src/virtual/CodeWriter.java" />
         <option value="$PROJECT_DIR$/src/virtual/Parser.java" />
+        <option value="$PROJECT_DIR$/src/virtual/CodeWriter.java" />
       </list>
     </option>
   </component>
@@ -135,9 +141,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="688" />
-    <option name="width" value="1298" />
-    <option name="height" value="1042" />
+    <option name="x" value="771" />
+    <option name="width" value="1340" />
+    <option name="height" value="1043" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -180,7 +186,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600782195489" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1600830434640" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -239,12 +245,13 @@
       <workItem from="1600742912639" duration="79000" />
       <workItem from="1600743159784" duration="1831000" />
       <workItem from="1600754459694" duration="4700000" />
-      <workItem from="1600774682977" duration="7012000" />
+      <workItem from="1600774682977" duration="7271000" />
+      <workItem from="1600823374308" duration="5433000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32142000" />
+    <option name="totallyTimeSpent" value="37834000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -256,7 +263,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="459" y="0" width="1038" height="833" extended-state="0" />
+    <frame x="617" y="0" width="1072" height="834" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.1622449" />
@@ -364,23 +371,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/io/WinNTFileSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="72" column="45" selection-start-line="72" selection-start-column="45" selection-end-line="72" selection-end-column="45" />
+        <state relative-caret-position="-17">
+          <caret line="308" column="18" selection-start-line="308" selection-start-column="18" selection-end-line="308" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/io/FileSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="93" column="29" lean-forward="true" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="546" column="26" selection-start-line="546" selection-start-column="26" selection-end-line="546" selection-end-column="26" />
           <folding>
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#493#494#0" expanded="true" />
-            <element signature="e#3633#3634#0" expanded="true" />
-            <element signature="e#3663#3664#0" expanded="true" />
+            <element signature="e#22923#22924#0" expanded="true" />
+            <element signature="e#22962#22963#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="49" column="34" lean-forward="true" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
+        <state relative-caret-position="3410">
+          <caret line="133" column="18" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -389,8 +408,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+        <state relative-caret-position="247">
+          <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
           <folding>
             <element signature="e#420#421#0" expanded="true" />
             <element signature="e#458#459#0" expanded="true" />
@@ -398,16 +417,22 @@
             <element signature="e#534#535#0" expanded="true" />
             <element signature="e#556#557#0" expanded="true" />
             <element signature="e#600#601#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1134#1135#0" expanded="true" />
-            <element signature="e#1646#1647#0" expanded="true" />
-            <element signature="e#1693#1694#0" expanded="true" />
-            <element signature="e#2433#2434#0" expanded="true" />
-            <element signature="e#2473#2474#0" expanded="true" />
-            <element signature="e#2501#2502#0" expanded="true" />
-            <element signature="e#2532#2533#0" expanded="true" />
-            <element signature="e#2552#2553#0" expanded="true" />
-            <element signature="e#2583#2584#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="true" />
+            <element signature="e#1718#1719#0" expanded="true" />
+            <element signature="e#2620#2621#0" expanded="true" />
+            <element signature="e#2679#2680#0" expanded="true" />
+            <element signature="e#2730#2731#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#410#411#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
           </folding>
         </state>
       </provider>

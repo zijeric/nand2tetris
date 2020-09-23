@@ -11,12 +11,12 @@ class CodeWriter {
 //    当前被翻译的.vm文件
     private String fileName;
 //    逻辑运算符后面的数字
-    private int logicalNum;
+    private int logicalIndex;
 
 //    为写入输出文件作准备
     CodeWriter(PrintWriter writer) {
         this.writer = writer;
-        logicalNum = 0;
+        logicalIndex = 0;
     }
 
 //    开始翻译新的.vm文件
@@ -66,6 +66,12 @@ class CodeWriter {
         }
     }
 
+    /**
+     * 写入(Push/Pop)指令对应的汇编指令
+     * @param command 指令类型(Push/Pop)
+     * @param segment 指令后的第一个参数，segment(constant段, local段, argument段...)
+     * @param index 对应segment段的索引
+     */
     void writePushAndPop(Parser.Command command, String segment, int index) {
 
         switch (segment) {
@@ -78,28 +84,31 @@ class CodeWriter {
                 }
                 break;
             case "local":
-//                TODO complete local segment
+//                TODO complete local segment and other commands
                 break;
         }
     }
 
     /**
-     *
      * @param operator write 分支
      */
     private void writeLogical(String operator) {
         decAndGetTopStack();
-        writeUnaryArithmetic();
-        writer.println("@RET_TRUE");
+        writer.println("A=A-1");
+        writer.println("D=M-D");
+        writer.println("@" + fileName + "_TRUE" + logicalIndex);
         writer.println("D;" + operator);
-        writer.println("D=0");
-        writer.println("@CONTINUE");
+        writer.println("@SP");
+        writer.println("A=M-1");
+        writer.println("M=0");
+        writer.println("@" + fileName + "_CONTINUE" + logicalIndex);
         writer.println("0;JMP");
-        writer.println("(RET_TRUE)");
-        writer.println("D=-1");
-        writer.println("(CONTINUE)");
-        getPointerVal();
-        writeInc();
+        writer.println("(" + fileName + "_TRUE" + logicalIndex + ")");
+        writer.println("@SP");
+        writer.println("A=M-1");
+        writer.println("M=-1");
+        writer.println("(" + fileName + "_CONTINUE" + logicalIndex + ")");
+        logicalIndex++;
     }
 
     /**

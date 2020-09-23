@@ -12,21 +12,26 @@ import java.util.Scanner;
  */
 class Parser {
 
+//    文件扫描
     private Scanner scanner;
+//    当前命令
     private String current;
-//    正在被解析的.vm文件
+//    正在被解析的.vm文件名称
     private String fileName;
 
+//    算术指令
     private final String[] ARITHMETIC_CMD = {"add", "sub", "neg", "eq", "gt", "lt", "and", "or", "not"};
 
     Parser(Scanner scanner) {
         this.scanner = scanner;
     }
 
+//    是否还有指令
     boolean hasMoreCommand() {
         return scanner.hasNextLine();
     }
 
+//    向前
     void advance() {
         current = scanner.nextLine();
     }
@@ -46,15 +51,18 @@ class Parser {
         C_CALL
     }
 
+//    跳过所有的空白
     void skipBlanks() {
         if (current.contains("//")){
             current = current.substring(0, current.indexOf("//"));
         }
-        current = current.replace(" ", "");
+//        不能跳过空格，eg: push constant 7处理后, pushconstant7--无法分割指令
+//        current = current.replace(" ", "");
         current = current.replace("\n", "");
         current = current.replace("\t", "");
     }
 
+//    当前指令长度
     int Length() {
         return current.length();
     }
@@ -85,27 +93,27 @@ class Parser {
 
     /**
      * forbid C_RETURN
-     * @return 返回当前指令第一个参数
+     * @return 返回当前指令第一个参数segment
      */
     String arg1() {
-//        if (CommandType() == commandType.C_ARITHMETIC){
-//            return current;
-//        } else {
+        if (CommandType() == Command.C_ARITHMETIC){
+            return current;
+        } else {
             return current.split("\\s+")[1];
-//        }
+        }
     }
 
     /**
      * only for C_PUSH, C_POP, C_FUNCTION, C_CALL
-     * @return 返回当前指令的第二个参数segment
+     * @return 返回当前指令的第二个参数, segment索引
      */
     int arg2() {
-//        if (CommandType() == commandType.C_PUSH ||
-//                CommandType() == commandType.C_POP ||
-//                CommandType() == commandType.C_FUNCTION ||
-//                CommandType() == commandType.C_CALL){
+        if (CommandType() == Command.C_PUSH ||
+                CommandType() == Command.C_POP ||
+                CommandType() == Command.C_FUNCTION ||
+                CommandType() == Command.C_CALL){
             return Integer.parseInt(current.split("\\s+")[2]);
-//        } else return -1;
+        } else return -1;
     }
 
     void setFileName(String fileName) {

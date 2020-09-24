@@ -13,11 +13,8 @@ import java.util.Scanner;
 public class VMTranslator {
     public static void main(String[] args) {
 
-//        输出文件
-        String outputFile = null;
-//        包含需要解析为.asm的.vm文件
+//        包含需要解析为.asm的.vm文件，进行错误处理
         ArrayList<Parser> files2parse = new ArrayList<>();
-        ArrayList<CodeWriter> codeWriters = new ArrayList<>();
 
 //        判断命令行是否正确
         if (args.length != 1) {
@@ -47,21 +44,23 @@ public class VMTranslator {
             parser.setFileName(fileName);
 
 //            将Parser对象存储在ArrayList<Parser>数组
-            files2parse.add(parser);
-            outputFile = fileName + ".asm";
+            String outputFile = fileName + ".asm";
+
+            writeVM2ASM(outputFile, parser);
 
 //        一个目录，扫描当中的所有.vm文件
         } else if (isDirectory) {
 //            files存储了指令参数arg[0]映射路径下的所有文件
             final File[] files = file.listFiles();
             assert files != null;
-
 //            遍历所有文件，找出.vm文件并进行解析(Parser)
             for (final File f : files) {
                 if (f.getName().endsWith(".vm")) {
                     final Parser parser = getParser(f);
                     final String fileName = f.getName().substring(0, f.getName().indexOf(".vm"));
                     parser.setFileName(fileName);
+                    String outputFile = file.getAbsolutePath() + "/" + fileName + ".asm";
+                    writeVM2ASM(outputFile, parser);
                     files2parse.add(parser);
                 }
             }
@@ -71,50 +70,39 @@ public class VMTranslator {
                 System.err.println("No .vm files to parse in " + args[0]);
                 System.exit(1);
             }
-//            输出文件的路径+名称，此处只能将目录中所有.vm文件翻译到一个.asm文件
-            outputFile = file.getAbsolutePath() + "/" + file.getName() + ".asm";
 
         } else {
             printCommandLineErrorAndExit();
         }
-//        实例化codeWriter对象，对输出文件写入对应的Hack汇编指令
-        PrintWriter printWriter = null;
-        try {
-            assert outputFile != null;
-            printWriter = new PrintWriter(outputFile);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        final CodeWriter codeWriter = new CodeWriter(printWriter);
+    }
 
-//        遍历Parser对象数组：每个.vm文件
-        for (final Parser file2parse : files2parse) {
-//            设置当前正在解析的文件的文件名
-            codeWriter.setFileName(file2parse.getFileName());
+    /**
+     * 封装写入对应Hack汇编代码到输出文件的操作，便于独立的Parser和单一的codeWriter处理输出
+     * @param output 单个.vm文件
+     */
+    private static void writeVM2ASM(String output, Parser parser) {
+        CodeWriter codeWriter = null;
+        try (PrintWriter writer = new PrintWriter(output)) {
+            codeWriter = new CodeWriter(writer);
+            codeWriter.setFileName(parser.getFileName());
+            while (parser.hasMoreCommand()) {
+                parser.advance();
+                parser.skipBlanks();
+                if (parser.Length() == 0) continue;
 
-//            常规逐行扫描、跳过空白
-            while (file2parse.hasMoreCommand()) {
-                file2parse.advance();
-                file2parse.skipBlanks();
-                if (file2parse.Length() == 0)
-                    continue;
-
-//                如果是"push" OR "pop"指令
-                if (file2parse.CommandType() == Parser.Command.C_PUSH
-                        || file2parse.CommandType() == Parser.Command.C_POP) {
-//                    写入"push" OR "pop"指令对应的汇编指令，传入 (指令类型，指令后接的第一个参数，第二个参数)
-                    codeWriter.writePushAndPop(file2parse.CommandType(), file2parse.arg1(),
-                            file2parse.arg2());
-
-//                    如果是算术指令
-                } else if (file2parse.CommandType() == Parser.Command.C_ARITHMETIC) {
-//                    传入完整的指令
-                    codeWriter.writeArithmetic(file2parse.command());
+                if (parser.CommandType() == Parser.Command.C_PUSH || parser.CommandType() == Parser.Command.C_POP) {
+                    codeWriter.writePushAndPop(parser.CommandType(), parser.arg1(), parser.arg2());
+                } else if (parser.CommandType() == Parser.Command.C_ARITHMETIC) {
+                    codeWriter.writeArithmetic(parser.command());
                 }
             }
-            file2parse.close();
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            assert codeWriter != null;
+            codeWriter.close();
         }
-        codeWriter.close();
+
     }
 
     /**

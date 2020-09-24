@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650c9768-524b-4023-a9f3-bb88c237a25b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../MemoryAccess/StaticTest/StaticTest.out" beforeDir="false" afterPath="$PROJECT_DIR$/../MemoryAccess/StaticTest/StaticTest.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/PointerTest.asm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/PointerTest.cmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/PointerTest.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/PointerTest.tst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/virtual-machine/PointerTest.vm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/virtual/CodeWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/CodeWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/virtual/VMTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/virtual/VMTranslator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../nand2tetris-Note/C6-汇编编译器.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../nand2tetris-Note/C6-汇编编译器.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../nand2tetris-Note/C7-虚拟机Ⅰ堆栈运算.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../nand2tetris-Note/C7-虚拟机Ⅰ堆栈运算.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
+            <state relative-caret-position="351">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
               <folding>
                 <element signature="e#2580#2581#0" expanded="true" />
                 <element signature="e#2620#2621#0" expanded="true" />
@@ -52,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3942">
+            <state relative-caret-position="3969">
               <caret line="147" column="38" selection-start-line="147" selection-start-column="38" selection-end-line="147" selection-end-column="38" />
               <folding>
                 <element signature="e#410#411#0" expanded="true" />
@@ -67,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+            <state relative-caret-position="213">
+              <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,6 +86,7 @@
       <find>PushDRegisterAndInc</find>
       <find>decAndGetTopStack</find>
       <find>write5Pop</find>
+      <find>file2parser</find>
     </findStrings>
     <replaceStrings>
       <replace>getPointerVal</replace>
@@ -131,9 +122,8 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="526" />
-    <option name="y" value="1" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="637" />
     <option name="width" value="1340" />
     <option name="height" value="1040" />
   </component>
@@ -243,12 +233,12 @@
       <workItem from="1600835240258" duration="373000" />
       <workItem from="1600842822485" duration="7052000" />
       <workItem from="1600859839470" duration="4908000" />
-      <workItem from="1600935309839" duration="172000" />
+      <workItem from="1600935309839" duration="4401000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50529000" />
+    <option name="totallyTimeSpent" value="54758000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -260,10 +250,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="114" y="27" width="1072" height="832" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.1622449" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1621984" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="JRebel" order="3" side_tool="true" />
@@ -393,10 +383,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-13/lib/src.zip!/java.base/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="457" column="43" lean-forward="true" selection-start-line="457" selection-start-column="43" selection-end-line="457" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3969">
+          <caret line="147" column="38" selection-start-line="147" selection-start-column="38" selection-end-line="147" selection-end-column="38" />
+          <folding>
+            <element signature="e#410#411#0" expanded="true" />
+            <element signature="e#491#492#0" expanded="true" />
+            <element signature="e#8797#8798#0" expanded="true" />
+            <element signature="e#8827#8828#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual/Parser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
+        <state relative-caret-position="351">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
           <folding>
             <element signature="e#2580#2581#0" expanded="true" />
             <element signature="e#2620#2621#0" expanded="true" />
@@ -408,23 +418,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/virtual/CodeWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3942">
-          <caret line="147" column="38" selection-start-line="147" selection-start-column="38" selection-end-line="147" selection-end-column="38" />
-          <folding>
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#491#492#0" expanded="true" />
-            <element signature="e#8797#8798#0" expanded="true" />
-            <element signature="e#8827#8828#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual/VMTranslator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="19" column="62" selection-start-line="19" selection-start-column="62" selection-end-line="19" selection-end-column="62" />
+        <state relative-caret-position="213">
+          <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

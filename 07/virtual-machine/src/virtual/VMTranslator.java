@@ -17,13 +17,15 @@ public class VMTranslator {
         String outputFile = null;
 //        包含需要解析为.asm的.vm文件
         ArrayList<Parser> files2parse = new ArrayList<>();
+        ArrayList<CodeWriter> codeWriters = new ArrayList<>();
 
-//        解析命令行参数
+//        判断命令行是否正确
         if (args.length != 1) {
             printCommandLineErrorAndExit();
         }
 
 //        检查提供的命令行参数，以确定它是有效的文件还是目录
+//        以命令行参数新建File对象
         final File file = new File(args[0]);
 //        检查文件是否存在
         final boolean exists = file.exists();
@@ -69,7 +71,7 @@ public class VMTranslator {
                 System.err.println("No .vm files to parse in " + args[0]);
                 System.exit(1);
             }
-//            输出文件的路径+名称
+//            输出文件的路径+名称，此处只能将目录中所有.vm文件翻译到一个.asm文件
             outputFile = file.getAbsolutePath() + "/" + file.getName() + ".asm";
 
         } else {

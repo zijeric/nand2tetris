@@ -127,7 +127,6 @@ class CodeWriter {
                 }
                 break;
             case "pointer":
-//                TODO pointer & static implementation
                 if (command == Parser.Command.C_PUSH) {
                     if (index == 0) {
                         writeMappedPush("@THIS");

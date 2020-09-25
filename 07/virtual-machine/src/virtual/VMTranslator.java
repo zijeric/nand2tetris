@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class VMTranslator {
     public static void main(String[] args) {
 
-//        包含需要解析为.asm的.vm文件，进行错误处理
+//        包含需要解析为.asm的.vm文件，为空进行错误处理
         ArrayList<Parser> files2parse = new ArrayList<>();
 
 //        判断命令行是否正确

@@ -1,4 +1,4 @@
-package virtual;
+package translator;
 
 import java.io.PrintWriter;
 
@@ -21,6 +21,18 @@ class CodeWriter {
 //    设置翻译出来的的.vm文件的文件名(提取出文件名)
     void setFileName(String fileName) {
         this.fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
+    }
+
+    /**
+     * .vm文件初始化的汇编代码，放置在文件顶部
+     */
+    void writerInit() {
+        writer.println("push LCL");
+        writer.println("push ARG");
+        writer.println("push THIS");
+        writer.println("push THAT");
+        writer.println("ARG=SP-n-5");
+        writer.println("LCL=SP");
     }
 
     /**
@@ -197,7 +209,7 @@ class CodeWriter {
     }
 
     /**
-     * 压入堆栈以查找指向虚拟段(LCL, ARG, THIS, THAT)基地址的符号
+     * 压入堆栈以查找指向虚拟段基地址的符号
      * 写入由基地址和索引(base+i)构建的Push指令
      * addr = segmentPointer + i, *SP = *addr, SP++
      * @param segmentPointer segment段的指针

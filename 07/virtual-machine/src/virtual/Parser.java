@@ -62,7 +62,7 @@ class Parser {
         current = current.replace("\t", "");
     }
 
-//    当前指令长度
+//    当前指令长度，在VMTranslator中判断当前行是否需要分析(纯注释、空行则跳过)
     int Length() {
         return current.length();
     }

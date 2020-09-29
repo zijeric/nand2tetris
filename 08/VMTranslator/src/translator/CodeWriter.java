@@ -11,11 +11,14 @@ class CodeWriter {
 //    当前被翻译的.vm文件
     private String fileName;
 //    伪指令: 区分分支标签的数字
-    private int logicalIndex;
+    private int branchIndex;
+//    伪指令: 区分返回地址声明标签 + 数字Index
+    private int returnIndex;
 
     CodeWriter(PrintWriter writer) {
         this.writer = writer;
-        logicalIndex = 0;
+        branchIndex = 0;
+        returnIndex = 0;
     }
 
 //    设置翻译出来的的.vm文件的文件名(提取出文件名)
@@ -33,6 +36,106 @@ class CodeWriter {
         writer.println("push THAT");
         writer.println("ARG=SP-n-5");
         writer.println("LCL=SP");
+    }
+
+    /**
+     * 编写执行Label命令的汇编指令
+     * @param label 标签
+     */
+    void writeLabel(String label) {
+        writer.println("(" + label + ")");
+    }
+
+    /**
+     * 编写goto命令的汇编指令
+     * @param label goto label中的标签
+     */
+    void writeGoto(String label) {
+        writer.println("@" + label);
+        writer.println("0;JMP");
+    }
+
+    /**
+     * 编写if-goto命令的汇编指令
+     * @param label @label
+     */
+    void writeIf(String label) {
+        decAndPopTopStack();
+        writer.println("@" + label);
+        writer.println("D;JNE");
+    }
+
+    /**
+     * call f n
+     * @param functionName 函数名
+     * @param numArgs 函数参数个数
+     */
+    void writeCall(String functionName, int numArgs) {
+        String returnAdd = uniqueReturnAdd(functionName);
+
+//        push return-address
+        writer.println("@" + returnAdd);
+        writer.println("D=A");
+        PushD2StackAndInc();
+
+//        push LCL, ARG, THIS, THAT
+        writeMappedPush("@LCL");
+        writeMappedPush("@ARG");
+        writeMappedPush("@THIS");
+        writeMappedPush("@THAT");
+
+//        reset ARG: ARG = (SP-n-5)
+        writer.println("@SP");
+        writer.println("D=M");
+        writer.println("@" + numArgs);
+        writer.println("D=D-A");
+        writer.println("@5");
+        writer.println("D=D-A");
+        writer.println("@ARG");
+        writer.println("M=D");
+
+//        reset LCL: LCL = SP
+        writer.println("@SP");
+        writer.println("D=M");
+        writer.println("@LCL");
+        writer.println("D=M");
+//        goto F
+        writeGoto(fileName);
+
+//        为返回地址声明一个标签
+        writer.println("(" + returnAdd + ")");
+    }
+
+    void writeReturn() {
+//        FRAME = LCL
+        writer.println("@LCL");
+        writer.println("D=M");
+        writer.println("@FRAME");
+        writer.println("M=D");
+        writer.println("@5");
+        writer.println("A=D-A");
+        writer.println("D=M");
+        writer.println("@RET");
+        writer.println("M=D");
+        writePushAndPop(Parser.Command.C_POP, "argument", 0);
+//        SP = ARG + 1
+        writer.println("@ARG");
+        writer.println("D=M");
+        writer.println("@SP");
+        writer.println("M=D+1");
+//        THAT = *(FRAME - 1)  恢复caller的THAT段指针
+        restoreCallerPointer("@THAT", 1);
+//        THIS = *(FRAME - 2) 恢复caller的THIS的指针
+        restoreCallerPointer("@THIS", 2);
+//        ARG = *(FRAME - 3)
+        restoreCallerPointer("@ARG", 3);
+//        LCL = *(FRAME - 4)
+        restoreCallerPointer("@LCL", 4);
+        writeGoto("RET");
+    }
+
+    private String uniqueReturnAdd(String functionName) {
+        return null;
     }
 
     /**
@@ -233,19 +336,19 @@ class CodeWriter {
         decAndPopTopStack();
         writer.println("A=A-1");
         writer.println("D=M-D");
-        writer.println("@" + fileName + "_TRUE" + logicalIndex);
+        writer.println("@" + fileName + "_TRUE" + branchIndex);
         writer.println("D;" + operator);
         writer.println("@SP");
         writer.println("A=M-1");
         writer.println("M=0");
-        writer.println("@" + fileName + "_CONTINUE" + logicalIndex);
+        writer.println("@" + fileName + "_CONTINUE" + branchIndex);
         writer.println("0;JMP");
-        writer.println("(" + fileName + "_TRUE" + logicalIndex + ")");
+        writer.println("(" + fileName + "_TRUE" + branchIndex + ")");
         writer.println("@SP");
         writer.println("A=M-1");
         writer.println("M=-1");
-        writer.println("(" + fileName + "_CONTINUE" + logicalIndex + ")");
-        logicalIndex++;
+        writer.println("(" + fileName + "_CONTINUE" + branchIndex + ")");
+        branchIndex++;
     }
 
     /**
@@ -291,6 +394,15 @@ class CodeWriter {
         writer.println("@SP");
         writer.println("AM=M-1");
         writer.println("D=M");
+    }
+
+    private void restoreCallerPointer(String dest, int index) {
+        writer.println("@FRAME");
+        writer.println("D=M");
+        writer.println("A=D-" + index);
+        writer.println("D=M");
+        writer.println(dest);
+        writer.println("M=D");
     }
 
     /**

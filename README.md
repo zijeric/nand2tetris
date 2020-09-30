@@ -1,2 +1,2 @@
 # nand2tetris
-nand2tetris
+Ideas, notes and project realization

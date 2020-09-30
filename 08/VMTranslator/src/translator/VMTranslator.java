@@ -11,93 +11,111 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Translates a specified VM file, or a directory containing multiple VM files, into a single .asm file.
+ * 将指定的VM文件或包含多个VM文件的目录转换为单个.asm文件
+ * reference: jahnagoldman
  */
 
 public class VMTranslator {
     public static void main(String[] args) {
 
-        String outFilename = null; // name of output file
-        ArrayList<Parser> filesToParse = new ArrayList<>(); // contains the .vm files that need to be parsed into .asm
+//        输出文件名
+        String outputFileName = null;
+//        包含需要解析为.asm的.vm文件
+        ArrayList<Parser> files2parse = new ArrayList<>();
 
-        // parse command line arguments
+        // 命令行参数的错误检查
         if (args.length != 1) {
             printCommandLineErrorAndExit();
         }
 
-        // examine the supplied command line argument to determine if it's a valid file or directory
+//        检查提供的命令行参数，以确定它是有效的文件还是目录
         File file = new File(args[0]);
-        boolean exists = file.exists(); // Check if file exists
-        boolean isDirectory = file.isDirectory(); // Check if it's a directory
-        boolean isFile = file.isFile(); // Check if it's a regular file
+//        命令行参数路径的3种情况: 1.不存在，2.文件，3.目录
+//        文件是否存在
+        boolean exists = file.exists();
+//        是否为常规的文件
+        boolean isFile = file.isFile();
+//        是否为目录
+        boolean isDirectory = file.isDirectory();
 
+//        1.不存在
         if (!exists) {
             System.err.println(args[0] + " is not a valid file or path");
             System.exit(1);
-        } else if (isFile && args[0].endsWith(".vm")) { // single .vm file supplied
+
+//        2.单个.vm文件
+        } else if (isFile && args[0].endsWith(".vm")) {
             Parser parser = getParser(file);
-            String filename = args[0].substring(0, args[0].indexOf(".vm"));
-            parser.setFileName(filename);
-            filesToParse.add(parser);
-            outFilename = filename + ".asm";
-        } else if (isDirectory) { // directory supplied, scan it for all .vm files
+            String fileName = args[0].substring(0, args[0].indexOf(".vm"));
+            parser.setFileName(fileName);
+            files2parse.add(parser);
+            outputFileName = fileName + ".asm";
+
+//        3.目录，扫描目录下所有的.vm文件
+        } else if (isDirectory) {
+//            将路径下的所有文件实例化为File对象并放入File数组
             File[] files = file.listFiles();
             assert files != null;
+
+//            遍历所有.vm文件，初始化Parser对象fileName参数(无后缀)，并加入到Parser的数组链表
             for (File f : files) {
                 if (f.getName().endsWith(".vm")) {
                     Parser parser = getParser(f);
-                    String filename = f.getName().substring(0, f.getName().indexOf(".vm"));
-                    parser.setFileName(filename);
-                    filesToParse.add(parser);
+                    String fileName = f.getName().substring(0, f.getName().indexOf(".vm"));
+                    parser.setFileName(fileName);
+                    files2parse.add(parser);
                 }
             }
 
-            // throw error and exit if directory supplied contains no .vm files
-            if (filesToParse.size() == 0) {
+//            如果目录不包含.vm文件，则抛出错误并退出
+            if (files2parse.size() == 0) {
                 System.err.println("No .vm files to parse in " + args[0]);
                 System.exit(1);
             }
 
-            outFilename = file.getAbsolutePath() + "/" + file.getName() + ".asm"; // output filename is dir name + .asm
+            outputFileName = file.getAbsolutePath() + "/" + file.getName() + ".asm"; // output fileName is dir name + .asm
+
+//        4. 命令行输入错误
         } else {
             printCommandLineErrorAndExit();
         }
 
-        // instantiate a single codeWriter
+//        实例化CodeWriter对象
         PrintWriter printWriter = null;
         try {
-            assert outFilename != null;
-            printWriter = new PrintWriter(outFilename);
+            assert outputFileName != null;
+            printWriter = new PrintWriter(outputFileName);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         CodeWriter codeWriter = new CodeWriter(printWriter);
 
-        boolean initialized = false; // flag indicates if bootstrap code has been written
+//        initialized指示.asm文件是否已写入引导程序代码
+        boolean initialized = false;
 
-        // iterate through the parsers: one for each .vm file
-        for (Parser fileToParse : filesToParse) {
+//        遍历Parser(每个.vm文件)，CodeWriter写入
+        for (Parser fileToParse : files2parse) {
 
-            if (!initialized) { // write bootstrap code just once, at beginning of file
+//            在文件开头只编写一次引导代码
+            if (!initialized) {
                 codeWriter.writerInit();
                 initialized = true;
             }
-
-            codeWriter.setFileName(fileToParse.getFileName()); // set the file name of the file currently being parsed
+            
+//            设置当前正在解析的文件的文件名
+            codeWriter.setFileName(fileToParse.getFileName());
 
             while (fileToParse.hasMoreCommand()) {
-                fileToParse.advance(); // go to next line
+                fileToParse.advance();
+                fileToParse.skipBlanks();
+                if (fileToParse.Length() == 0) continue;
 
-                fileToParse.skipBlanks(); // strip comments
-                if (fileToParse.Length() == 0) continue; // don't process if no valid command
+                Parser.Command command = fileToParse.CommandType();
 
-                Parser.Command cmd = fileToParse.CommandType();
-
-                switch (cmd) {
+                switch (command) {
                     case C_POP:
                     case C_PUSH:
-                        codeWriter.writePushAndPop(fileToParse.CommandType(), fileToParse.arg1(),
-                                fileToParse.arg2());
+                        codeWriter.writePushAndPop(fileToParse.CommandType(), fileToParse.arg1(), fileToParse.arg2());
                         break;
                     case C_ARITHMETIC:
                         codeWriter.writeArithmetic(fileToParse.command());
@@ -127,7 +145,6 @@ public class VMTranslator {
             }
             fileToParse.close();
         }
-        // close resources
         codeWriter.close();
     }
 
@@ -142,9 +159,9 @@ public class VMTranslator {
     }
 
     private static void printCommandLineErrorAndExit() {
-        System.err.println("usage: java VMTranslator/VMTranslator <filename.vm>");
+        System.err.println("usage: java translator/VMTranslator <fileName.vm>");
         System.err.println("OR");
-        System.err.println("java VMTranslator/VMTranslator <directory>");
+        System.err.println("java translator/VMTranslator <directory>");
         System.exit(1);
     }
 }

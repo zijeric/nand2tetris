@@ -12,7 +12,7 @@ class CodeWriter {
     private String fileName;
 //    伪指令: 区分分支标签的数字
     private int branchIndex;
-//    伪指令: 区分返回地址声明标签 + 数字Index
+//    伪指令: 区分返回地址的标签数字
     private int returnIndex;
 
     CodeWriter(PrintWriter writer) {
@@ -26,16 +26,14 @@ class CodeWriter {
         this.fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
     }
 
-    /**
-     * .vm文件初始化的汇编代码，放置在文件顶部
-     */
     void writerInit() {
-        writer.println("push LCL");
-        writer.println("push ARG");
-        writer.println("push THIS");
-        writer.println("push THAT");
-        writer.println("ARG=SP-n-5");
-        writer.println("LCL=SP");
+//        SP=256
+        writer.println("@256");
+        writer.println("D=A");
+        writer.println("@SP");
+        writer.println("M=D");
+//        call Sys.init
+        writeCall("Sys.init", 0);
     }
 
     /**
@@ -71,7 +69,7 @@ class CodeWriter {
      * @param numArgs 函数参数个数
      */
     void writeCall(String functionName, int numArgs) {
-        String returnAdd = uniqueReturnAdd(functionName);
+        String returnAdd = uniqueReturnAdd();
 
 //        push return-address
         writer.println("@" + returnAdd);
@@ -98,9 +96,9 @@ class CodeWriter {
         writer.println("@SP");
         writer.println("D=M");
         writer.println("@LCL");
-        writer.println("D=M");
+        writer.println("M=D");
 //        goto F
-        writeGoto(fileName);
+        writeGoto(functionName);
 
 //        为返回地址声明一个标签
         writer.println("(" + returnAdd + ")");
@@ -124,18 +122,34 @@ class CodeWriter {
         writer.println("@SP");
         writer.println("M=D+1");
 //        THAT = *(FRAME - 1)  恢复caller的THAT段指针
-        restoreCallerPointer("@THAT", 1);
+        restoreCallerPointer("@THAT");
 //        THIS = *(FRAME - 2) 恢复caller的THIS的指针
-        restoreCallerPointer("@THIS", 2);
+        restoreCallerPointer("@THIS");
 //        ARG = *(FRAME - 3)
-        restoreCallerPointer("@ARG", 3);
+        restoreCallerPointer("@ARG");
 //        LCL = *(FRAME - 4)
-        restoreCallerPointer("@LCL", 4);
-        writeGoto("RET");
+        restoreCallerPointer("@LCL");
+        writer.println("@RET");
+        writer.println("A=M");
+        writer.println("0;JMP");
     }
 
-    private String uniqueReturnAdd(String functionName) {
-        return null;
+    /**
+     * function f k
+     * @param functionName 函数名f
+     * @param numLocals 局部变量的个数k
+     */
+    void writeFunction(String functionName, int numLocals) {
+//        declare label
+        writer.println("(" + functionName + ")");
+//        set aside locations for local vars
+        for (int i = 0; i < numLocals; i++) {
+            writePushAndPop(Parser.Command.C_PUSH, "constant", 0);
+        }
+    }
+
+    private String uniqueReturnAdd() {
+        return "return-address" + "_" + (returnIndex++);
     }
 
     /**
@@ -256,10 +270,11 @@ class CodeWriter {
                 }
                 break;
             case "static":
+                String location = "@" + fileName + "_" + index;
                 if (command == Parser.Command.C_PUSH) {
-                    writeMappedPush("@" + fileName + "." + index);
+                    writeMappedPush(location);
                 } else if (command == Parser.Command.C_POP) {
-                    writeMappedPop("@" + fileName + "." + index);
+                    writeMappedPop(location);
                 }
                 break;
         }
@@ -376,7 +391,8 @@ class CodeWriter {
      */
     private void writeBinaryArithmetic() {
         decAndPopTopStack();
-        writeUnaryArithmetic();
+//        writeUnaryArithmetic();
+        writer.println("A=A-1");
     }
 
     /**
@@ -396,10 +412,11 @@ class CodeWriter {
         writer.println("D=M");
     }
 
-    private void restoreCallerPointer(String dest, int index) {
+    private void restoreCallerPointer(String dest) {
         writer.println("@FRAME");
-        writer.println("D=M");
-        writer.println("A=D-" + index);
+        writer.println("AM=M-1");
+//        writer.println("D=M");
+//        writer.println("A=D-" + index);
         writer.println("D=M");
         writer.println(dest);
         writer.println("M=D");

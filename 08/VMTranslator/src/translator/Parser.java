@@ -79,7 +79,7 @@ class Parser {
             return Command.C_POP;
         } else if (isArithmeticCmd()){
             return Command.C_ARITHMETIC;
-        } else if (current.startsWith("(")) {
+        } else if (current.startsWith("label")) {
             return Command.C_LABEL;
         } else if (current.startsWith("goto")) {
             return Command.C_GOTO;
@@ -89,11 +89,12 @@ class Parser {
             return Command.C_FUNCTION;
         } else if (current.startsWith("return")) {
             return Command.C_RETURN;
-        } else if (current.startsWith("call")) {
+        } else if (current.startsWith("call")){
             return Command.C_CALL;
-        } else {
+        }else {
             return null;
         }
+//
     }
 
     /**
@@ -117,12 +118,13 @@ class Parser {
      * @return 返回当前指令的第二个参数, segment索引
      */
     int arg2() {
-        if (CommandType() == Command.C_PUSH ||
-                CommandType() == Command.C_POP ||
-                CommandType() == Command.C_FUNCTION ||
-                CommandType() == Command.C_CALL){
-            return Integer.parseInt(current.split("\\s+")[2]);
-        } else return -1;
+//        if (CommandType() == Command.C_PUSH ||
+//                CommandType() == Command.C_POP ||
+//                CommandType() == Command.C_FUNCTION ||
+//                CommandType() == Command.C_CALL){
+//            return Integer.parseInt(current.split("\\s+")[2]);
+//        } else return -1;
+        return Integer.parseInt(current.split("\\s+")[2]);
     }
 
     void setFileName(String fileName) {
@@ -138,12 +140,12 @@ class Parser {
     }
 
     /**
-     * 遍历算术指令ARITHMETIC_CMD，如果当前指令等于其中一个就返回true
+     * 遍历算术指令ARITHMETIC_CMD，如果当前指令的开始等于其中一个就返回true
      * @return 是否为算术指令
      */
     private boolean isArithmeticCmd() {
         for (String cmd : ARITHMETIC_CMD) {
-            if (current.equals(cmd)) return true;
+            if (current.startsWith(cmd)) return true;
         }
         return false;
     }

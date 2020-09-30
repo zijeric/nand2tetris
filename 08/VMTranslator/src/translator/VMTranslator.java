@@ -4,126 +4,143 @@ package translator;
  */
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Translates a specified VM file, or a directory containing multiple VM files, into a single .asm file.
+ */
+
 public class VMTranslator {
     public static void main(String[] args) {
 
-//        包含需要解析为.asm的.vm文件，为空进行错误处理
-        ArrayList<Parser> files2parse = new ArrayList<>();
+        String outFilename = null; // name of output file
+        ArrayList<Parser> filesToParse = new ArrayList<>(); // contains the .vm files that need to be parsed into .asm
 
-//        判断命令行是否正确
+        // parse command line arguments
         if (args.length != 1) {
             printCommandLineErrorAndExit();
         }
 
-//        检查提供的命令行参数，以确定它是有效的文件还是目录
-//        以命令行参数新建File对象
+        // examine the supplied command line argument to determine if it's a valid file or directory
         File file = new File(args[0]);
-//        检查文件是否存在
-        boolean exists = file.exists();
-//        检查是否为目录
-        boolean isDirectory = file.isDirectory();
-//        检查是否为常规的文件
-        boolean isFile = file.isFile();
+        boolean exists = file.exists(); // Check if file exists
+        boolean isDirectory = file.isDirectory(); // Check if it's a directory
+        boolean isFile = file.isFile(); // Check if it's a regular file
 
-//        文件不存在
         if (!exists) {
-            System.err.println(args[0] + "is not a valid file or path !");
+            System.err.println(args[0] + " is not a valid file or path");
             System.exit(1);
-
-//        单个的.vm文件
-        } else if (isFile && args[0].endsWith(".vm")) {
-//            获取Parser对象并初始化文件名，获取指令参数(路径+文件名)
+        } else if (isFile && args[0].endsWith(".vm")) { // single .vm file supplied
             Parser parser = getParser(file);
-            String fileName = args[0].substring(0, args[0].indexOf(".vm"));
-            parser.setFileName(fileName);
-
-            String outputFile = fileName + ".asm";
-//            单个.vm文件直接翻译成.asm文件
-            writeVM2ASM(outputFile, parser);
-
-//        一个目录，扫描当中的所有.vm文件
-        } else if (isDirectory) {
-//            将指令参数arg[0]映射路径下的所有文件转换成File对象，并用File[]数组存储
+            String filename = args[0].substring(0, args[0].indexOf(".vm"));
+            parser.setFileName(filename);
+            filesToParse.add(parser);
+            outFilename = filename + ".asm";
+        } else if (isDirectory) { // directory supplied, scan it for all .vm files
             File[] files = file.listFiles();
             assert files != null;
-//            遍历所有文件，找出.vm文件并进行解析(Parser)
             for (File f : files) {
                 if (f.getName().endsWith(".vm")) {
                     Parser parser = getParser(f);
-                    String fileName = f.getName().substring(0, f.getName().indexOf(".vm"));
-                    parser.setFileName(fileName);
-                    String outputFile = file.getAbsolutePath() + "/" + fileName + ".asm";
-                    writeVM2ASM(outputFile, parser);
-                    files2parse.add(parser);
+                    String filename = f.getName().substring(0, f.getName().indexOf(".vm"));
+                    parser.setFileName(filename);
+                    filesToParse.add(parser);
                 }
             }
 
-//            如果提供的目录不包含.vm文件，则抛出错误并退出
-            if (files2parse.size() == 0) {
+            // throw error and exit if directory supplied contains no .vm files
+            if (filesToParse.size() == 0) {
                 System.err.println("No .vm files to parse in " + args[0]);
                 System.exit(1);
             }
 
+            outFilename = file.getAbsolutePath() + "/" + file.getName() + ".asm"; // output filename is dir name + .asm
         } else {
             printCommandLineErrorAndExit();
         }
-    }
 
-    /**
-     * 封装写入对应Hack汇编代码到输出文件的操作，便于独立的Parser和单一的codeWriter处理输出
-     * @param output 单个.vm文件
-     */
-    private static void writeVM2ASM(String output, Parser parser) {
-        CodeWriter codeWriter = null;
-        try (PrintWriter writer = new PrintWriter(output)) {
-            codeWriter = new CodeWriter(writer);
-            codeWriter.setFileName(parser.getFileName());
-            while (parser.hasMoreCommand()) {
-                parser.advance();
-                parser.skipBlanks();
-                if (parser.Length() == 0) continue;
-
-                if (parser.CommandType() == Parser.Command.C_PUSH || parser.CommandType() == Parser.Command.C_POP) {
-                    codeWriter.writePushAndPop(parser.CommandType(), parser.arg1(), parser.arg2());
-                } else if (parser.CommandType() == Parser.Command.C_ARITHMETIC) {
-                    codeWriter.writeArithmetic(parser.command());
-                }
-                writer.close();
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            parser.close();
-            assert codeWriter != null;
-            codeWriter.close();
+        // instantiate a single codeWriter
+        PrintWriter printWriter = null;
+        try {
+            assert outFilename != null;
+            printWriter = new PrintWriter(outFilename);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
+        CodeWriter codeWriter = new CodeWriter(printWriter);
 
+        boolean initialized = false; // flag indicates if bootstrap code has been written
+
+        // iterate through the parsers: one for each .vm file
+        for (Parser fileToParse : filesToParse) {
+
+            if (!initialized) { // write bootstrap code just once, at beginning of file
+                codeWriter.writerInit();
+                initialized = true;
+            }
+
+            codeWriter.setFileName(fileToParse.getFileName()); // set the file name of the file currently being parsed
+
+            while (fileToParse.hasMoreCommand()) {
+                fileToParse.advance(); // go to next line
+
+                fileToParse.skipBlanks(); // strip comments
+                if (fileToParse.Length() == 0) continue; // don't process if no valid command
+
+                Parser.Command cmd = fileToParse.CommandType();
+
+                switch (cmd) {
+                    case C_POP:
+                    case C_PUSH:
+                        codeWriter.writePushAndPop(fileToParse.CommandType(), fileToParse.arg1(),
+                                fileToParse.arg2());
+                        break;
+                    case C_ARITHMETIC:
+                        codeWriter.writeArithmetic(fileToParse.command());
+                        break;
+                    case C_LABEL:
+                        codeWriter.writeLabel(fileToParse.arg1());
+                        break;
+                    case C_GOTO:
+                        codeWriter.writeGoto(fileToParse.arg1());
+                        break;
+                    case C_IF:
+                        codeWriter.writeIf(fileToParse.arg1());
+                        break;
+                    case C_FUNCTION:
+                        codeWriter.writeFunction(fileToParse.arg1(), fileToParse.arg2());
+                        break;
+                    case C_RETURN:
+                        codeWriter.writeReturn();
+                        break;
+                    case C_CALL:
+                        codeWriter.writeCall(fileToParse.arg1(), fileToParse.arg2());
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            fileToParse.close();
+        }
+        // close resources
+        codeWriter.close();
     }
 
-    /**
-     * 根据File文件对象创建Parser对象
-     * @param file 根据文件名构建的File对象
-     * @return Parser对象
-     */
     private static Parser getParser(File file) {
         Parser parser = null;
         try {
             parser = new Parser(new Scanner(new FileReader(file)));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         return parser;
     }
 
-    /**
-     * 输出命令行的用法并退出
-     */
     private static void printCommandLineErrorAndExit() {
         System.err.println("usage: java VMTranslator/VMTranslator <filename.vm>");
         System.err.println("OR");

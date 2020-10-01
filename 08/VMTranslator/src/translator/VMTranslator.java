@@ -113,12 +113,13 @@ public class VMTranslator {
                 Parser.Command command = fileToParse.CommandType();
 
                 switch (command) {
-                    case C_POP:
-                    case C_PUSH:
-                        codeWriter.writePushAndPop(fileToParse.CommandType(), fileToParse.arg1(), fileToParse.arg2());
-                        break;
                     case C_ARITHMETIC:
                         codeWriter.writeArithmetic(fileToParse.command());
+                        break;
+//                    pop & push 同调用函数
+                    case C_PUSH:
+                    case C_POP:
+                        codeWriter.writePushAndPop(fileToParse.CommandType(), fileToParse.arg1(), fileToParse.arg2());
                         break;
                     case C_LABEL:
                         codeWriter.writeLabel(fileToParse.arg1());
@@ -141,7 +142,6 @@ public class VMTranslator {
                     default:
                         break;
                 }
-
             }
             fileToParse.close();
         }

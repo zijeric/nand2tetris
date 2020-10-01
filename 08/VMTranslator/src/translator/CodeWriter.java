@@ -33,11 +33,11 @@ class CodeWriter {
         writer.println("@SP");
         writer.println("M=D");
 //        call Sys.init
-        writeCall("Sys.init", 0);
+        writeCall("SYS_INIT", 0);
     }
 
     /**
-     * 编写执行Label命令的汇编指令
+     * 编写执行label命令的汇编指令
      * @param label 标签
      */
     void writeLabel(String label) {
@@ -58,7 +58,7 @@ class CodeWriter {
      * @param label @label
      */
     void writeIf(String label) {
-        decAndPopTopStack();
+        decAndPopTopStack2D();
         writer.println("@" + label);
         writer.println("D;JNE");
     }
@@ -69,7 +69,8 @@ class CodeWriter {
      * @param numArgs 函数参数个数
      */
     void writeCall(String functionName, int numArgs) {
-        String returnAdd = uniqueReturnAdd();
+//        增加index区分返回地址
+        String returnAdd = "RETURN_ADD" + "_" + (returnIndex++);
 
 //        push return-address
         writer.println("@" + returnAdd);
@@ -77,10 +78,10 @@ class CodeWriter {
         PushD2StackAndInc();
 
 //        push LCL, ARG, THIS, THAT
-        writeMappedPush("@LCL");
-        writeMappedPush("@ARG");
-        writeMappedPush("@THIS");
-        writeMappedPush("@THAT");
+        writeFixedPush("@LCL");
+        writeFixedPush("@ARG");
+        writeFixedPush("@THIS");
+        writeFixedPush("@THAT");
 
 //        reset ARG: ARG = (SP-n-5)
         writer.println("@SP");
@@ -148,9 +149,6 @@ class CodeWriter {
         }
     }
 
-    private String uniqueReturnAdd() {
-        return "return-address" + "_" + (returnIndex++);
-    }
 
     /**
      * 将给定的算术操作所对应的汇编写到输出文件
@@ -217,88 +215,94 @@ class CodeWriter {
                 break;
             case "local":
                 if (command == Parser.Command.C_PUSH) {
-                    writeBasePush("@LCL", index);
+                    writeSegmentPush("@LCL", index);
                 } else if (command == Parser.Command.C_POP) {
-                    writeBasePop("@LCL", index);
+                    writeSegmentPop("@LCL", index);
                 }
                 break;
             case "argument":
                 if (command == Parser.Command.C_PUSH) {
-                    writeBasePush("@ARG", index);
+                    writeSegmentPush("@ARG", index);
                 } else if (command == Parser.Command.C_POP) {
-                    writeBasePop("@ARG", index);
+                    writeSegmentPop("@ARG", index);
                 }
                 break;
             case "this":
                 if (command == Parser.Command.C_PUSH) {
-                    writeBasePush("@THIS", index);
+                    writeSegmentPush("@THIS", index);
                 } else if (command == Parser.Command.C_POP) {
-                    writeBasePop("@THIS", index);
+                    writeSegmentPop("@THIS", index);
                 }
                 break;
             case "that":
                 if (command == Parser.Command.C_PUSH) {
-                    writeBasePush("@THAT", index);
+                    writeSegmentPush("@THAT", index);
                 } else if (command == Parser.Command.C_POP) {
-                    writeBasePop("@THAT", index);
+                    writeSegmentPop("@THAT", index);
                 }
                 break;
             case "temp":
                 if (command == Parser.Command.C_PUSH) {
                     int address = 5 + index;
                     String location = "@" + address;
-                    writeMappedPush(location);
+                    writeFixedPush(location);
                 } else if (command == Parser.Command.C_POP) {
                     int address = 5 + index;
                     String location = "@" + address;
-                    writeMappedPop(location);
+                    writeFixedPop(location);
                 }
                 break;
             case "pointer":
                 if (command == Parser.Command.C_PUSH) {
                     if (index == 0) {
-                        writeMappedPush("@THIS");
+                        writeFixedPush("@THIS");
                     } else if (index == 1) {
-                        writeMappedPush("@THAT");
+                        writeFixedPush("@THAT");
                     }
                 } else if (command == Parser.Command.C_POP) {
                     if (index == 0) {
-                        writeMappedPop("@THIS");
+                        writeFixedPop("@THIS");
                     } else if (index == 1) {
-                        writeMappedPop("@THAT");
+                        writeFixedPop("@THAT");
                     }
                 }
                 break;
             case "static":
                 String location = "@" + fileName + "_" + index;
                 if (command == Parser.Command.C_PUSH) {
-                    writeMappedPush(location);
+                    writeFixedPush(location);
                 } else if (command == Parser.Command.C_POP) {
-                    writeMappedPop(location);
+                    writeFixedPop(location);
                 }
                 break;
         }
     }
 
     /**
-     * temp: stored in RAM locations 5 to 12 (8个)
-     * addr = (5+i), SP--, *addr = *SP
+     * segment和pointer,static,temp段的区别只有：segment段需要额外计算地址
+     * 即push/pop local 2，需要计算LCL+2再进行push/pop操作
+     *
+     * temp: SP--, *(5+i) = *SP,          temporary variable
+     * pointer: SP--, *(THIS/THAT) = *SP,   global pointer
+     *   **(THIS/THAT -> this/that base address)
+     * static: Sp--, *(fileName_i) = *SP,   global variable
      * @param location 直接映射在RAM的段地址
      */
-    private void writeMappedPop(String location) {
-        decAndPopTopStack();
+    private void writeFixedPop(String location) {
+        decAndPopTopStack2D();
         writer.println(location);
         writer.println("M=D");
     }
 
     /**
-     * temp: stored in RAM locations 5 to 12 (8个)
+     * temp: *SP = *(5+i), SP++,          temporary variable
+     * pointer: *SP = *(THIS/THAT), SP++,   global pointer
+     * static: *SP = *(fileName_i), SP++,   global variable
      * 压入堆栈，将段直接映射到RAM
      * 直接将值存储在D寄存器，并PushD2StackAndInc
-     * addr = (5+i), *SP = *addr, SP++
-     * @param location @(5+index)
+     * @param location @(5+i), @(THIS/THAT), @(fileName_i)
      */
-    private void writeMappedPush(String location) {
+    private void writeFixedPush(String location) {
         writer.println(location);
 //        D=M, 映射地址M存储到D寄存器
         writer.println("D=M");
@@ -311,7 +315,7 @@ class CodeWriter {
      * @param segmentPointer segment段的指针
      * @param index segment索引
      */
-    private void writeBasePop(String segmentPointer, int index) {
+    private void writeSegmentPop(String segmentPointer, int index) {
 //        addr = segmentPointer + i，获取addr，存储在R13
         writer.println(segmentPointer);
         writer.println("D=M");
@@ -320,7 +324,7 @@ class CodeWriter {
         writer.println("@R13");
         writer.println("M=D");
 //        SP--, *addr = *SP
-        decAndPopTopStack();
+        decAndPopTopStack2D();
         writer.println("@R13");
         writer.println("A=M");
         writer.println("M=D");
@@ -333,7 +337,7 @@ class CodeWriter {
      * @param segmentPointer segment段的指针
      * @param index segment索引
      */
-    private void writeBasePush(String segmentPointer, int index) {
+    private void writeSegmentPush(String segmentPointer, int index) {
 //        将(segmentPointer+i)所指向的内存单元的值(*addr)存储在D寄存器
         writer.println(segmentPointer);
         writer.println("D=M");
@@ -348,7 +352,7 @@ class CodeWriter {
      * @param operator write 分支
      */
     private void writeLogical(String operator) {
-        decAndPopTopStack();
+        decAndPopTopStack2D();
         writer.println("A=A-1");
         writer.println("D=M-D");
         writer.println("@" + fileName + "_TRUE" + branchIndex);
@@ -371,8 +375,12 @@ class CodeWriter {
      * 先赋值，再自增
      */
     private void PushD2StackAndInc() {
-        writePointerVal();
-        writeInc();
+//        给SP所指向的内存单元赋值(D寄存器的值)
+        writer.println("@SP");
+        writer.println("A=M");
+        writer.println("M=D");
+//        SP++
+        writer.println("A=A+1");
     }
 
     /**
@@ -390,44 +398,29 @@ class CodeWriter {
      * SP--: M=M-1，SP自减
      */
     private void writeBinaryArithmetic() {
-        decAndPopTopStack();
-//        writeUnaryArithmetic();
+        decAndPopTopStack2D();
         writer.println("A=A-1");
-    }
-
-    /**
-     * SP自增
-     */
-    private void writeInc() {
-        writer.println("@SP");
-        writer.println("M=M+1");
     }
 
     /**
      * SP自减并获取栈顶元素
      */
-    private void decAndPopTopStack() {
+    private void decAndPopTopStack2D() {
         writer.println("@SP");
         writer.println("AM=M-1");
         writer.println("D=M");
-    }
-
-    private void restoreCallerPointer(String dest) {
-        writer.println("@FRAME");
-        writer.println("AM=M-1");
-//        writer.println("D=M");
-//        writer.println("A=D-" + index);
-        writer.println("D=M");
-        writer.println(dest);
-        writer.println("M=D");
     }
 
     /**
-     * 给SP所指向的内存单元赋值(D寄存器的值)
+     * 恢复caller的segmentPointer
+     * @param dest segmentPointer
      */
-    private void writePointerVal() {
-        writer.println("@SP");
-        writer.println("A=M");
+    private void restoreCallerPointer(String dest) {
+        writer.println("@FRAME");
+//        自减
+        writer.println("AM=M-1");
+        writer.println("D=M");
+        writer.println(dest);
         writer.println("M=D");
     }
 

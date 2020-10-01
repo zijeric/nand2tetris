@@ -94,7 +94,6 @@ class Parser {
         }else {
             return null;
         }
-//
     }
 
     /**
@@ -118,13 +117,12 @@ class Parser {
      * @return 返回当前指令的第二个参数, segment索引
      */
     int arg2() {
-//        if (CommandType() == Command.C_PUSH ||
-//                CommandType() == Command.C_POP ||
-//                CommandType() == Command.C_FUNCTION ||
-//                CommandType() == Command.C_CALL){
-//            return Integer.parseInt(current.split("\\s+")[2]);
-//        } else return -1;
-        return Integer.parseInt(current.split("\\s+")[2]);
+        if (CommandType() == Command.C_PUSH ||
+                CommandType() == Command.C_POP ||
+                CommandType() == Command.C_FUNCTION ||
+                CommandType() == Command.C_CALL){
+            return Integer.parseInt(current.split("\\s+")[2]);
+        } else return -1;
     }
 
     void setFileName(String fileName) {

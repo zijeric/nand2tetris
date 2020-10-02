@@ -94,7 +94,6 @@ public class VMTranslator {
                 } else if (parser.CommandType() == Parser.Command.C_ARITHMETIC) {
                     codeWriter.writeArithmetic(parser.command());
                 }
-                writer.close();
             }
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());

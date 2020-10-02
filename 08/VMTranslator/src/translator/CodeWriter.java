@@ -26,6 +26,9 @@ class CodeWriter {
         this.fileName = fileName.substring(fileName.lastIndexOf("/") + 1);
     }
 
+    /**
+     * 每个程序开始都应该带有Sys.init函数调用
+     */
     void writerInit() {
 //        SP=256
         writer.println("@256");

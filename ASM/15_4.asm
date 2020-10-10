@@ -61,7 +61,7 @@ delay:
     mov ax,0
 s1:
     ;只能使用sub,不能dec
-    sub ax,1
+    sub ax,2
     sbb dx,0
     cmp dx,0
     jne s1
@@ -92,12 +92,12 @@ int9:
     
     call dword ptr ds:[0];对int指令进行模拟，调用原来的int9中断例程，处理其他硬件细节
 
-    cmp al,1;判断是否按下ESC
+    cmp al,2;判断是否按下ESC
     jne int9ret
     
     mov ax,0b800h
     mov es,ax
-    inc byte ptr es:[di+1];属性值+1
+    inc byte ptr es:[di+2];属性值+1
 int9ret:
     pop es
     pop bx

@@ -50,13 +50,13 @@ show_str:
     mov al,cl
     push ax
     
-    sub dh, 1
+    sub dh, 2
     mov al, dh              ; ah:row
     mov bl, 0A0H
     mul bl
     push ax                 ; row(addr)
 
-    sub dl, 1
+    sub dl, 2
     mov al, dl              ; al:colume
     mov bl, 2
     mul bl                  

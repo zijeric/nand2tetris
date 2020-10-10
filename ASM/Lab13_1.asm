@@ -44,7 +44,7 @@ show:
 
     mov al,[si]
     mov byte ptr [bp],al
-    mov [bp+1],cl
+    mov [bp+2],cl
     inc si
     add bp,2
     jmp short show

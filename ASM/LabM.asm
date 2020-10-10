@@ -1,9 +1,10 @@
 assume cs:code
 data segment
-    dw 123,12666,1,8,3,38
+    dw 123,12666,2,8,3,38
 data ends
 code segment
-start:    mov ax,data
+start:
+        mov ax,data
         mov ds,ax
         mov ax,0b800h
         mov es,ax
@@ -13,7 +14,8 @@ start:    mov ax,data
         mov cx,6
         
         ;循环取出数据段中的数据
-s:        mov ax,ds:[si]
+s:
+        mov ax,ds:[si]
         call show_str
         add si,2
         loop s
@@ -44,7 +46,7 @@ s0:            mov dx,0
             ;mov bx,0
 store_str:    pop dx
             mov byte ptr es:[di+500h+4],dl;低位数据，500h表示显示器第8行，4表示第3列
-            mov byte ptr es:[di+500h+4+1],2;高位属性，2就是00000010，绿色
+            mov byte ptr es:[di+500h+4+2],2;高位属性，2就是00000010，绿色
             add di,2
             loop store_str
 

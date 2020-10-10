@@ -16,7 +16,7 @@ flag:
     je ok
     mov al,ds:[si]
     mov byte ptr es:[di],al
-    mov byte ptr es:[di+1],2
+    mov byte ptr es:[di+2],2
     inc si
     add di,2
     int 7CH

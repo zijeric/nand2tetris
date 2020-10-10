@@ -37,7 +37,7 @@ do0start:
 s:
     mov al,[si]
     mov es:[di],al
-    mov byte ptr es:[di+1],4        ; attr: color red
+    mov byte ptr es:[di+2],4        ; attr: color red
     inc si
     add di,2
     loop s

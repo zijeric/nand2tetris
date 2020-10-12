@@ -1,4 +1,4 @@
-assume cs:code,es:data,ds:table
+assume cs:code,es:data,ds:tablesg
 
 data segment
     db '1975','1976','1977','1978','1979','1980','1981','1982','1983'
@@ -15,15 +15,21 @@ data segment
     ; 以上是表示21年公司雇员人数的21个word型数据 2 * 21 = 42
 data ends
 
-table segment
-    db 21 dup ('year summ ne ?? ') ; 'year summ ne ?? ' 刚好16个字节
-table ends
+tablesg segment
+    db 21 dup ('year summ ne ?? ') ; 'year summ ne ?? ' 16个字节
+tablesg ends
 
 code segment
-start:  
-    mov ax,data
+start:
+    call input_table
+    mov ax,4c00h
+    int 21h
+
+;==========================================
+input_table:
+        mov ax,data
     mov es,ax
-    mov ax,table
+    mov ax,tablesg
     mov ds,ax
     mov bx,0
     mov cx,21
@@ -67,8 +73,8 @@ s1:
     add bx,14               ; 下一行
     add si,2                ; data段下一个数据
     loop s1
-    mov ax,4c00h
-    int 21h
+
+    ret
 
 code ends
 end start

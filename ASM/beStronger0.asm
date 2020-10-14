@@ -1,34 +1,39 @@
 assume cs:code
-stack segment
+stacksg segment
     db 128 dup (0)
-stack ends
+stacksg ends
 code segment
+
 start:
-    mov ax,stack
+    mov ax,stacksg
     mov ss,ax
     mov sp,128
-    ; 将我们自定义的int9中断例程放在0:204H
+
+    ; source
     push cs
     pop ds
-    mov ax,0
-    mov es,ax
-
     mov si,offset int9
+
+    ; destination 0:204H
+    mov ax,0H
+    mov es,ax
     mov di,204H
-    mov cx,offset int9end-offset int9
+
+    ; length
+    mov cx,offset int9end - offset int9
     cld
     rep movsb
 
-    ; 存储中断向量表中 原int9中断例程的地址
+    ; store old int9
     push es:[9*4]
     pop es:[200H]
     push es:[9*4+2]
     pop es:[202H]
 
-    ; *important* 修改中断向量表，真正使我们自定义的int9成为中断例程
+    ; modify the table
     cli
     mov word ptr es:[9*4], 204H
-    mov word ptr es:[9*4+2], 0
+    mov word ptr es:[9*4+2], 0H
     sti
 
     mov ax,4C00H
@@ -40,10 +45,9 @@ int9:
     push cx
     push es
 
-    ; TODO
-    in al,60H
+    in al, 60H
 
-    ; 仿制原int 9
+    ; fake int9
     pushf
     call dword ptr cs:[200H]
 
@@ -53,12 +57,11 @@ int9:
     mov ax,0B800H
     mov es,ax
     mov bx,0
-    ; 屏幕有400bits
     mov cx,2000
-chageAttr:
-    mov byte ptr es:[bx],'A'
+s:
+    mov byte ptr es:[bx], 'A'
     add bx,2
-    loop chageAttr
+    loop s
 
 int9ret:
     pop es
@@ -69,5 +72,6 @@ int9ret:
 
 int9end:
     nop
+    
 code ends
 end start

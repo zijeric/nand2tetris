@@ -1,10 +1,10 @@
-assume cs:code,ss:stack
-stack segment
+assume cs:code,ss:stacksg
+stacksg segment
     db 128 dup (0)
-stack ends
+stacksg ends
 code segment
 start:
-    mov ax,stack
+    mov ax,stacksg
     mov ss,ax
     mov sp,128
     
@@ -152,7 +152,7 @@ choose_func4:
 set_time:
     call init_boot
     call cls_screen
-    call clear_stack
+    call clear_stacksg
     
     ;设置提示信息显示位置
     mov di,160*10+13*2
@@ -224,17 +224,17 @@ char_pop:
 char_pop_end:
     ret
 
-clear_stack:
+clear_stacksg:
     push bx
     push cx
     
     mov bx,offset change-offset boot+7e00h
     mov cx,12
-cls_stack:
+cls_stacksg:
     ;替换change段中内容
     mov byte ptr ds:[bx],'*'
     inc bx
-    loop cls_stack
+    loop cls_stacksg
     
     pop cx
     pop bx

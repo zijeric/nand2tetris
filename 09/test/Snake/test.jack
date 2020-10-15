@@ -1,0 +1,7 @@
+class test{
+    function void main() {
+        var int length;
+        let length = Kryboard.readInt("which numbers ? ");
+        return;
+    }
+}

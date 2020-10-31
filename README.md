@@ -1,2 +1,16 @@
 # nand2tetris
-Ideas, notes and project realization
+- [x] 第一章-布尔逻辑
+- [x] 第二章-布尔运算
+- [x] 第三章-时序逻辑
+- [x] 第四章-机器语言
+- [x] 第五章-计算机体系结构
+- [x] 第六章-汇编编译器
+- [x] 第七章-虚拟机Ⅰ：堆栈运算
+- [x] 第八章-虚拟机Ⅱ：程序控制
+- [x] 第九章-高级语言
+- [ ] 第十章-编译器Ⅰ：语法分析
+- [ ] 第十一章-编译器Ⅱ：代码生成
+- [ ] 第十二章-操作系统
+- [ ] 第十三章-后记
+
+Record ideas, notes and project realization
